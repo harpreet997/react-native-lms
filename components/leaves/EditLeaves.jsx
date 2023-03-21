@@ -1,28 +1,70 @@
-import {useState} from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import { useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, Alert, TextInput, Button } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import DatePicker from 'react-native-modern-datepicker';
+import { editLeave } from '../../api_methods/post_methods/postmethod';
 
-const EditLeaves = () => {
-    return ( 
-        <ScrollView>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalHeading}>Edit Leave Status</Text>
-                        <Text style={styles.text}>Employee Name: </Text>
-                        <TextInput style={styles.textbox} placeholder="Employee Name" />
-                        <Text style={styles.text}>Leave Type: </Text>
-                        <TextInput style={styles.textbox} placeholder="Leave Type" />
-                        <Text style={styles.text}>From Date: </Text>
-                        <TextInput style={styles.textbox} placeholder="From Date" />
-                        <Text style={styles.text}>To Date: </Text>
-                        <TextInput style={styles.textbox} placeholder="To Date" />
-                        <Text style={styles.text}>Leave Status: </Text>
-                        <TextInput style={styles.textbox} placeholder="Leave Status" />
-                        <Text style={styles.text}>Reason: </Text>
-                        <TextInput multiline={true}
-                            numberOfLines={4} style={styles.textbox} placeholder="Reason" />
-                        <Button title='Update' onPress={() => setModalVisible(!modalVisible)} />
-                    </View>
-                </ScrollView>
-     );
+const EditLeaves = ({ leavelist, handleCloseModal}) => {
+    const [employeeName, setEmployeeName] = useState(leavelist.employeeName);
+    const [leaveType, setLeaveType] = useState(leavelist.leaveType);
+    const [fromDate, setFromDate] = useState(leavelist.fromDate.substring(0, 10));
+    const [toDate, setToDate] = useState(leavelist.toDate.substring(0, 10));
+    const [reason, setReason] = useState(leavelist.reason);
+    const [status, setStatus] = useState(leavelist.status);
+    const id = leavelist._id;
+
+    const UpdateStatus = (id) => {
+        const payload = {
+            employeeName: employeeName,
+            leaveType: leaveType,
+            fromDate: fromDate,
+            toDate: toDate,
+            status: status,
+            reason: reason,
+            _id: id
+        }
+        editLeave(id, payload)
+            .then((response) => {
+                Alert.alert(response.data.message);
+                handleCloseModal();
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+
+    return (
+        <ScrollView >
+            <View style={styles.modalView}>
+                <Text style={styles.modalHeading}>Edit Leave Status</Text>
+                <Text style={styles.text}>Employee Name: </Text>
+                <TextInput style={styles.textbox} value={employeeName} onChangeText={(text) => setEmployeeName(text)} editable={false}
+                    placeholder="Employee Name" />
+                <Text style={styles.text}>Leave Type: </Text>
+                <TextInput style={styles.textbox} value={leaveType} onChangeText={(text) => setLeaveType(text)} editable={false}
+                    placeholder="Leave Type" />
+                <Text style={styles.text}>From Date: </Text>
+                <DatePicker mode="calendar" selected={fromDate} onDateChange={setFromDate} />
+                <Text style={styles.text}>To Date: </Text>
+                <DatePicker mode="calendar" selected={toDate} onDateChange={setToDate} />
+                <Text style={styles.text}>Leave Status: </Text>
+                <Picker
+                    selectedValue={status}
+                    style={{ height: 50, width: 150 }}
+                    onValueChange={(itemValue) => setStatus(itemValue)}
+                >
+                    <Picker.Item label="Approved" value="Approved" />
+                    <Picker.Item label="Pending" value="Pending" />
+                    <Picker.Item label="Rejected" value="Rejected" />
+                </Picker>
+                <Text style={styles.text}>Reason: </Text>
+                <TextInput multiline={true}
+                    numberOfLines={4} style={styles.textbox} value={reason} onChangeText={(text) => setReason(text)} placeholder="Reason" />
+                <Button title='Update' onPress={() => UpdateStatus(id)} />
+            </View>
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -62,5 +104,5 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
 })
- 
+
 export default EditLeaves;

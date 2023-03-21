@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { StyleSheet, Text, View, FlatList, Button, Alert, Modal, TextInput } from "react-native";
+import { StyleSheet, Text, View, FlatList, Button, Alert, Modal } from "react-native";
 import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
-import DatePicker from 'react-native-date-picker'
+import { deleteLeave } from "../../api_methods/post_methods/postmethod";
+import EditLeaves from "./EditLeaves";
 
 const AllLeaves = () => {
     const [leavelist, setLeaveList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [editstatus, setEditStatus] = useState(false);
-    const [date, setDate] = useState(new Date())
-
+   
     useEffect(() => {
         getAllLeaves()
             .then((response) => {
@@ -18,11 +18,25 @@ const AllLeaves = () => {
             .catch((error) => {
                 console.log(error);
             })
-    }, []);
+    }, [leavelist]);
 
     const handleOpenModal = (id) => {
         setModalVisible(true)
         setEditStatus(id)
+    }
+
+    const handleCloseModal = () => {
+        setModalVisible(false)      
+    }
+
+    const DeleteLeaves = (id) => {
+        deleteLeave(id)
+            .then((response) => {
+                Alert.alert(response.data.message);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     const Item = ({ item, i }) => (
@@ -66,7 +80,7 @@ const AllLeaves = () => {
             <View style={{ flexDirection: 'row', backgroundColor: 'coral' }}>
                 <Button title='Edit' color={'green'} onPress={() => handleOpenModal(item._id)} />
                 <Text>|</Text>
-                <Button title='Delete' />
+                <Button title='Delete' onPress={() => DeleteLeaves(item._id)}/>
             </View>
 
             <Modal
@@ -75,63 +89,15 @@ const AllLeaves = () => {
                 visible={editstatus === item._id ? modalVisible : false}
                 onRequestClose={() => {
                     Alert.alert('Modal has been closed.');
-                    setModalVisible(!modalVisible);
+                    setTimeout(() => {
+                        setModalVisible(!modalVisible);
+                    }, 2000)
+                    
                 }}>
 
-                <ScrollView leavelist={item}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalHeading}>Edit Leave Status</Text>
-                        <Text style={styles.text}>Employee Name: </Text>
-                        <TextInput style={styles.textbox} value={item.employeeName} placeholder="Employee Name" />
-                        <Text style={styles.text}>Leave Type: </Text>
-                        <TextInput style={styles.textbox} value={item.leaveType} placeholder="Leave Type" />
-                        <Text style={styles.text}>From Date: </Text>
-                        {/* <TextInput style={styles.textbox} value={item.fromDate.substring(0, 10)} placeholder="From Date" /> */}
-                        <DatePicker
-                            style={styles.datePickerStyle}
-                            date={date}
-                            mode="date"
-                            placeholder="select date"
-                            format="DD/MM/YYYY"
-                            minDate="01-01-1900"
-                            maxDate="01-01-2000"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
-                            customStyles={{
-                                dateIcon: {
-                                    position: 'absolute',
-                                    right: -5,
-                                    top: 4,
-                                    marginLeft: 0,
-                                },
-                                dateInput: {
-                                    borderColor: "gray",
-                                    alignItems: "flex-start",
-                                    borderWidth: 0,
-                                    borderBottomWidth: 1,
-                                },
-                                placeholderText: {
-                                    fontSize: 17,
-                                    color: "gray"
-                                },
-                                dateText: {
-                                    fontSize: 17,
-                                }
-                            }}
-                            onDateChange={(date) => {
-                                setDate(date);
-                            }}
-                        />
-                        <Text style={styles.text}>To Date: </Text>
-                        <TextInput style={styles.textbox} value={item.toDate.substring(0, 10)} placeholder="To Date" />
-                        <Text style={styles.text}>Leave Status: </Text>
-                        <TextInput style={styles.textbox} value={item.status} placeholder="Leave Status" />
-                        <Text style={styles.text}>Reason: </Text>
-                        <TextInput multiline={true}
-                            numberOfLines={4} style={styles.textbox} placeholder="Reason" />
-                        <Button title='Update' onPress={() => setModalVisible(!modalVisible)} />
-                    </View>
-                </ScrollView>
+                <EditLeaves leavelist={item} handleCloseModal={handleCloseModal}/>
+
+                
             </Modal>
         </View>
     );
@@ -140,7 +106,7 @@ const AllLeaves = () => {
     return (
         <ScrollView horizontal={true} style={{ flex: 1, margin: 2 }}>
             <View >
-                <Text style={styles.textSize}>All Leaves</Text>
+                
                 <View style={{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black' }}>
                     <View style={styles.listheading}>
                         <Text style={styles.textSize}>Name</Text>
@@ -178,7 +144,7 @@ const AllLeaves = () => {
                     <View style={styles.verticalline}>
                         <Text >|</Text>
                     </View>
-                    <View style={styles.listheading}>
+                    <View style={styles.listheadingAction}>
                         <Text style={styles.textSize}>Action</Text>
                     </View>
                 </View>
@@ -203,7 +169,7 @@ const styles = StyleSheet.create({
         borderWidth: 2
     },
     textSize: {
-        fontSize: 15,
+        fontSize: 18,
         marginLeft: 5,
         marginRight: 5,
         fontWeight: 'bold',
@@ -216,8 +182,12 @@ const styles = StyleSheet.create({
         width: 100,
         backgroundColor: 'coral'
     },
+    listheadingAction: {
+        width: 120,
+        backgroundColor: 'coral'
+    },
     listbody: {
-        fontSize: 12,
+        fontSize: 15,
         marginLeft: 5,
         marginRight: 5,
         fontWeight: 'bold',

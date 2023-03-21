@@ -1,9 +1,17 @@
 import React from "react";
-import { Text } from "react-native/";
+import { Text, View } from "react-native/";
+import PendingLeaves from "./PendingLeaves";
+import AllLeaves from "./AllLeaves";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+const Tab = createMaterialTopTabNavigator();
 
 const ApprovedLeaves = () => {
     return (
-        <Text>Approved Leaves</Text>
+        <Tab.Navigator>
+            <Tab.Screen name="All Leaves" component={AllLeaves} />
+            <Tab.Screen name="Pending Leaves" component={PendingLeaves} />
+        </Tab.Navigator>
     )
 }
 

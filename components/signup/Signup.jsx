@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ScrollView, View, Text, TextInput, StyleSheet, Alert, TouchableOpacity } from "react-native";
-import { login } from "../api_methods/post_methods/postmethod";
+import { login } from "../../api_methods/post_methods/postmethod";
 
-export const Login = (props) => {
+const Signup = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -36,14 +36,27 @@ export const Login = (props) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.main}>
+        <Text style={styles.text}>First Name: </Text>
+        <TextInput style={styles.textbox} placeholder='Enter First Name' placeholderTextColor={"black"}
+          onChangeText={(text) => setEmail(text)} />
+        <Text style={styles.text}>Last Name: </Text>
+        <TextInput style={styles.textbox} placeholder='Enter Last Name' placeholderTextColor={"black"}
+          onChangeText={(text) => setEmail(text)} />
+        <Text style={styles.text}>Contact Number: </Text>
+        <TextInput style={styles.textbox} placeholder='Enter Contact Number' keyboardType="numeric" placeholderTextColor={"black"}
+          onChangeText={(text) => setEmail(text)} />
         <Text style={styles.text}>Email Address: </Text>
         <TextInput style={styles.textbox} placeholder='Enter Email Address' keyboardType="email-address" placeholderTextColor={"black"}
           onChangeText={(text) => setEmail(text)} />
         <Text style={styles.text}>Password: </Text>
         <TextInput style={styles.textbox} placeholder='Enter Password' placeholderTextColor={"black"}
           secureTextEntry={true} onChangeText={(text) => setPassword(text)} />
+        <Text style={styles.text}>Confirm Password: </Text>
+        <TextInput style={styles.textbox} placeholder='Enter Confirm Password' placeholderTextColor={"black"}
+          secureTextEntry={true} onChangeText={(text) => setPassword(text)} />
+
         <TouchableOpacity style={styles.login} onPress={handlePress}>
-          <Text style={styles.logintext}>Login</Text>
+          <Text style={styles.logintext}>Register</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -102,3 +115,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 })
+
+export default Signup

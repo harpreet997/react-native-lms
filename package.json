@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/cli": "^10.2.0",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-picker/picker": "^2.4.8",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/material-top-tabs": "^6.6.2",
@@ -23,7 +24,9 @@
     "react-native-date-picker": "^4.2.9",
     "react-native-eject": "^0.2.0",
     "react-native-gesture-handler": "^2.9.0",
+    "react-native-modern-datepicker": "^1.0.0-beta.91",
     "react-native-pager-view": "^6.1.4",
+    "react-native-reanimated": "^2.2.4",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.20.0",
     "react-native-tab-view": "^3.5.1",
