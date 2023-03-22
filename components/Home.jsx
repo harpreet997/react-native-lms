@@ -2,13 +2,13 @@ import { StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
 import { getEmployees } from '../api_methods/get_methods/getmethods';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import AllLeaves from './leaves/AllLeaves';
-import PendingLeaves from './leaves/PendingLeaves';
 import ApprovedLeaves from './leaves/ApprovedLeaves';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Profile from './profile/Profile';
 import ApplyLeave from './leaves/ApplyLeave';
-import {Text} from 'react-native';
+import EmployeesList from './employees/EmployeesList';
+import ProjectList from './projects/ProjectList';
+import CustomSidebar from './sidebar/CustomSidebar';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -20,6 +20,8 @@ export const Home = (props) => {
     let headers = {
         authorization: token
     }
+
+    console.log(token)
 
     useEffect(() => {
         getEmployees(headers)
@@ -37,13 +39,16 @@ export const Home = (props) => {
         //     <Tab.Screen name="Pending Leaves" component={PendingLeaves} />
         //     <Tab.Screen name="Approved Leaves" component={ApprovedLeaves} />
         // </Tab.Navigator>
-        <Drawer.Navigator>
+        <Drawer.Navigator screenOptions={{
+            activeTintColor: '#e91e63',
+            itemStyle: {marginVertical: 5},
+          }} 
+          drawerContent={props => <CustomSidebar {...props}/>}>
             <Drawer.Screen name="Profile" component={Profile} />
-            <Drawer.Screen name="All Leaves" component={AllLeaves} />
             <Drawer.Screen name="Apply Leave" component={ApplyLeave} />
-            {/* <Drawer.Screen name="Pending Leaves" component={PendingLeaves} /> */}
-            <Drawer.Screen name="Approved Leaves" component={ApprovedLeaves} />
-            
+            <Drawer.Screen name="All Leaves" component={ApprovedLeaves} />
+            <Drawer.Screen name="Employees" component={() => <EmployeesList headers={headers}/>} />
+            <Drawer.Screen name="Projects" component={() => <ProjectList headers={headers}/>} />
         </Drawer.Navigator>
     );
 }

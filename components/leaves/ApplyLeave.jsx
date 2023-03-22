@@ -1,5 +1,5 @@
-import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native'
-import React, { useState} from 'react'
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Alert, RefreshControl } from 'react-native'
+import React, { useState, useCallback} from 'react'
 import DatePicker from 'react-native-modern-datepicker';
 import { Picker } from '@react-native-picker/picker';
 import { applyLeave } from '../../api_methods/post_methods/postmethod';
@@ -11,6 +11,7 @@ export default function ApplyLeave(props) {
     const [fromDate, setFromDate] = useState('');
     const [toDate, setToDate] = useState('');
     const [reason, setReason] = useState('');
+    const [refreshing, setRefreshing] = useState(false);
 
     const handleApplyLeave = () => {
         const payload = {
@@ -34,8 +35,17 @@ export default function ApplyLeave(props) {
         })
     }
 
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+          setRefreshing(false);
+        }, 100);
+      }, []);
+
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
             <View style={styles.main}>
                 <Text style={styles.text}>Employee Name: </Text>
                 <TextInput style={styles.textbox} placeholder='Enter Employee Name' placeholderTextColor={"black"}
@@ -57,7 +67,8 @@ export default function ApplyLeave(props) {
                 <DatePicker mode="calendar" onDateChange={setToDate} />
                 <Text style={styles.text}>Reason: </Text>
                 <TextInput multiline={true}
-                    numberOfLines={4} style={styles.textbox} onChangeText={(text) => setReason(text)} placeholder="Reason" />
+                    numberOfLines={4} style={styles.textbox} onChangeText={(text) => setReason(text)} placeholder="Reason" 
+                    placeholderTextColor={"black"} />
                 <TouchableOpacity style={styles.login} onPress={handleApplyLeave}>
                     <Text style={styles.logintext} >Apply Leave</Text>
                 </TouchableOpacity>
@@ -80,9 +91,10 @@ const styles = StyleSheet.create({
     text: {
         marginLeft: 10,
         marginBottom: 10,
-        fontSize: 15,
+        fontSize: 17,
         fontWeight: 'bold',
-        textAlign: 'left'
+        textAlign: 'left',
+        color: "black"
     },
     textbox: {
         borderWidth: 1,
@@ -91,7 +103,8 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         marginBottom: 10,
         marginLeft: 10,
-        marginRight: 10
+        marginRight: 10,
+        color: "black"
     },
     items: {
         fontSize: 20,

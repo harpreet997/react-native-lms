@@ -72,14 +72,24 @@ const styles = StyleSheet.create({
   },
   main: {
     justifyContent: 'center',
-    paddingBottom: 30
+    paddingBottom: 30,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: "black",
+    marginHorizontal: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 5,
+    paddingRight: 5, 
+    marginBottom: 25
   },
   text: {
     marginLeft: 10,
     marginBottom: 10,
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: 'bold',
-    textAlign: 'left'
+    textAlign: 'left',
+    color: "black"
   },
   textbox: {
     borderWidth: 1,
@@ -88,7 +98,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     marginBottom: 10,
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    color: "black"
   },
   items: {
     fontSize: 20,
@@ -108,7 +119,8 @@ const styles = StyleSheet.create({
     width: 200,
     alignItems: "center",
     paddingVertical: 10,
-    marginHorizontal: "20%"
+    marginHorizontal: "20%",
+    marginBottom: 10
   },
   logintext: {
     fontSize: 18,

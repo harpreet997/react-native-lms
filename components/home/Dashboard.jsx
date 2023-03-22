@@ -25,14 +25,15 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: "bold",
         marginBottom: 20,
-        marginVertical: "50%"
+        marginVertical: "50%",
+        color: "black"
     },
     login: {
         backgroundColor: 'lightgreen',
         borderRadius: 100, 
         width: 200,
         alignItems: "center",
-        paddingVertical: 10
+        paddingVertical: 10, 
     },
     signup: {
         backgroundColor: 'lightgreen',
@@ -44,10 +45,10 @@ const styles = StyleSheet.create({
     },
     logintext: {
         fontSize: 18,
-        fontWeight: "bold"
+        color: "black"
     },
     signuptext: {
         fontSize: 18,
-        fontWeight: "bold"
+        color: "black"
     }
 })

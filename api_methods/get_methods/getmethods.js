@@ -8,3 +8,7 @@ export const getEmployees = (headers) => {
 export const getAllLeaves = () => {
     return axios.post(`${baseUrl}/api/v1/leave/list`)
 }
+
+export const getProjects = (headers) => {
+    return axios.get(`${baseUrl}/api/v1/project/list`, {headers})   
+}

@@ -1,11 +1,17 @@
-import { View, Image, StyleSheet, Button } from 'react-native'
+import { View, Image, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import React from 'react'
 
 export default function Profile(props) {
+
+  const handleLogout = () => {
+    props.navigation.navigate("Dashboard")
+  }
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require('../../images/Profile.png')} />
-      <Button title="logout" onPress={() => props.navigation.navigate("Dashboard")}/>
+      <TouchableOpacity style={styles.logout} onPress={handleLogout}>
+          <Text style={styles.logouttext}>Logout</Text>
+        </TouchableOpacity>
     </View>
   )
 }
@@ -19,5 +25,18 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: 300, 
     height: 300   
+  }, 
+  logout: {
+    backgroundColor: 'dodgerblue',
+    borderRadius: 100,
+    width: 200,
+    alignItems: "center",
+    paddingVertical: 10,
+    marginHorizontal: "15%"
+  },
+  logouttext: {
+    fontSize: 18,
+    fontWeight: "bold"
   }
+  
 })

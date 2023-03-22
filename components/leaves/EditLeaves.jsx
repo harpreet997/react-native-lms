@@ -50,8 +50,9 @@ const EditLeaves = ({ leavelist, handleCloseModal}) => {
                 <DatePicker mode="calendar" selected={toDate} onDateChange={setToDate} />
                 <Text style={styles.text}>Leave Status: </Text>
                 <Picker
+                style={styles.select}
                     selectedValue={status}
-                    style={{ height: 50, width: 150 }}
+                    
                     onValueChange={(itemValue) => setStatus(itemValue)}
                 >
                     <Picker.Item label="Approved" value="Approved" />
@@ -60,7 +61,8 @@ const EditLeaves = ({ leavelist, handleCloseModal}) => {
                 </Picker>
                 <Text style={styles.text}>Reason: </Text>
                 <TextInput multiline={true}
-                    numberOfLines={4} style={styles.textbox} value={reason} onChangeText={(text) => setReason(text)} placeholder="Reason" />
+                    numberOfLines={4} style={styles.textbox} value={reason} onChangeText={(text) => setReason(text)} placeholder="Reason" 
+                    placeholderTextColor={"black"}/>
                 <Button title='Update' onPress={() => UpdateStatus(id)} />
             </View>
         </ScrollView>
@@ -70,10 +72,9 @@ const EditLeaves = ({ leavelist, handleCloseModal}) => {
 const styles = StyleSheet.create({
     modalView: {
         margin: 15,
-        backgroundColor: 'white',
+        backgroundColor: 'lightgreen',
         borderRadius: 20,
         padding: 35,
-        // alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -84,25 +85,30 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     text: {
-        // marginLeft: 5,
         marginBottom: 10,
-        fontSize: 15,
+        fontSize: 17,
         fontWeight: 'bold',
-        // textAlign: 'center'
+        color: "black"
     },
     modalHeading: {
         marginBottom: 10,
         fontSize: 20,
         fontWeight: 'bold',
+        color: "black"
     },
     textbox: {
         borderWidth: 1,
         borderColor: 'black',
         paddingLeft: 10,
         marginBottom: 10,
-        // marginLeft: 5,
-        marginRight: 10
+        marginRight: 10, 
+        color: "black"
     },
+    select: {
+        borderWidth: 1,
+        borderRadius: 5, 
+        borderColor: "black"
+    }
 })
 
 export default EditLeaves;

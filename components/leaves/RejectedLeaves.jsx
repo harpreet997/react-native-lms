@@ -5,11 +5,11 @@ import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
 import { deleteLeave } from "../../api_methods/post_methods/postmethod";
 import EditLeaves from "./EditLeaves";
 
-const PendingLeaves = () => {
+const RejectedLeaves = () => {
     const [leavelist, setLeaveList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [editstatus, setEditStatus] = useState(false);
-    const pendingleaves = leavelist.filter(item => item.status === 'Pending')
+    const rejectedleaves = leavelist.filter(item => item.status === 'Rejected')
 
     useEffect(() => {
         getAllLeaves()
@@ -105,7 +105,7 @@ const PendingLeaves = () => {
     return (
         <ScrollView horizontal={true} style={{ flex: 1, margin: 2 }}>
             <View>
-                {pendingleaves.length > 0 ?
+                {rejectedleaves.length > 0 ?
                     <View style={{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black' }}>
                         <View style={styles.listheading}>
                             <Text style={styles.textSize}>Name</Text>
@@ -149,9 +149,9 @@ const PendingLeaves = () => {
                     </View>
                     : null}
 
-                {pendingleaves.length > 0 ?
+                {rejectedleaves.length > 0 ?
                     <FlatList
-                        data={pendingleaves}
+                        data={rejectedleaves}
                         renderItem={Item}
                         keyExtractor={item => item.i}
                     /> : <Image source={require('../../images/NoRecord.png')} />}
@@ -210,4 +210,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default PendingLeaves;
+export default RejectedLeaves;
