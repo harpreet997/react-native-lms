@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { StyleSheet, Text, View, FlatList, Button, Alert, Modal } from "react-native";
+import { StyleSheet, Text, View, FlatList, Alert, Modal, TouchableOpacity, ActivityIndicator } from "react-native";
 import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
 import { deleteLeave } from "../../api_methods/post_methods/postmethod";
 import EditLeaves from "./EditLeaves";
-// import Icon from "react-native-vector-icons";
 
 const AllLeaves = () => {
     const [leavelist, setLeaveList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [editstatus, setEditStatus] = useState(false);
-   
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         getAllLeaves()
             .then((response) => {
                 setLeaveList(response.data.data);
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -27,7 +28,7 @@ const AllLeaves = () => {
     }
 
     const handleCloseModal = () => {
-        setModalVisible(false)      
+        setModalVisible(false)
     }
 
     const DeleteLeaves = (id) => {
@@ -40,8 +41,8 @@ const AllLeaves = () => {
             })
     }
 
-    const Item = ({ item, i }) => (
-        <View key={i} style={{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black' }}>
+    const Item = ({ item, index }) => (
+        <View key={index} style={[{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black', margin: 3 }, (index % 2 === 0) ? { backgroundColor: "coral" } : { backgroundColor: "yellow" }]}>
             <View style={styles.listheading}>
                 <Text style={[styles.listbody, styles.textCaptital]}>{item.employeeName}</Text>
             </View>
@@ -78,94 +79,92 @@ const AllLeaves = () => {
             <View style={styles.verticalline}>
                 <Text >|</Text>
             </View>
-            <View style={{ flexDirection: 'row', backgroundColor: 'coral' }}>
-                <Button title='Edit' color={'green'} onPress={() => handleOpenModal(item._id)} />
-                <Text>|</Text>
-                <Button title='Delete' onPress={() => DeleteLeaves(item._id)}/>
-            </View>
+            <TouchableOpacity style={styles.edit} onPress={() => handleOpenModal(item._id)}>
+                <Text style={styles.edittext}>Edit </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.delete} onPress={() => DeleteLeaves(item._id)}>
+                <Text style={styles.deletetext}>Delete </Text>
+            </TouchableOpacity>
 
             <Modal
-            style={{backgroundColor: "lightblue"}}
+                style={{ backgroundColor: "lightblue" }}
                 animationType="slide"
                 transparent={true}
                 visible={editstatus === item._id ? modalVisible : false}
                 onRequestClose={() => {
                     setTimeout(() => {
                         setModalVisible(!modalVisible);
-                    }, 2000)
-                    
+                    }, 1000)
+
                 }}>
-                <EditLeaves leavelist={item} handleCloseModal={handleCloseModal}/>  
+                <EditLeaves leavelist={item} handleCloseModal={handleCloseModal} />
             </Modal>
         </View>
     );
 
 
     return (
-        <ScrollView horizontal={true} style={{ flex: 1, margin: 2 }}>
-            <View >
-                
-                <View style={{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black' }}>
-                    <View style={styles.listheading}>
-                        <Text style={styles.textSize}>Name</Text>
-                    </View>
-                    <View style={styles.verticalline}>
-                        <Text >|</Text>
-                    </View>
-                    <View style={styles.listheading}>
-                        <Text style={styles.textSize}>Leave Type</Text>
-                    </View>
-                    <View style={styles.verticalline}>
-                        <Text >|</Text>
-                    </View>
-                    <View style={styles.listheading}>
-                        <Text style={styles.textSize}>From Date</Text>
-                    </View>
-                    <View style={styles.verticalline}>
-                        <Text >|</Text>
-                    </View>
-                    <View style={styles.listheading}>
-                        <Text style={styles.textSize}>To Date</Text>
-                    </View>
-                    <View style={styles.verticalline}>
-                        <Text >|</Text>
-                    </View>
-                    <View style={styles.listheading}>
-                        <Text style={styles.textSize}>Status</Text>
-                    </View>
-                    <View style={styles.verticalline}>
-                        <Text >|</Text>
-                    </View>
-                    <View style={styles.listheading}>
-                        <Text style={styles.textSize}>Reason</Text>
-                    </View>
-                    <View style={styles.verticalline}>
-                        <Text >|</Text>
-                    </View>
-                    <View style={styles.listheadingAction}>
-                        <Text style={styles.textSize}>Action</Text>
-                    </View>
+        <ScrollView horizontal={true} >
+            {loading ?
+                <View style={styles.indicatorWrapper}>
+                    <ActivityIndicator style={styles.indicator} size="large" />
+                    <Text style={styles.indicatorText}>Loading ...</Text>
                 </View>
-                <FlatList
-                    data={leavelist}
-                    renderItem={Item}
-                    keyExtractor={item => item.i}
-                />
-
-            </View>
+                :
+                <View >
+                    <View style={{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black', margin: 3 }}>
+                        <View style={styles.listheading}>
+                            <Text style={styles.textSize}>Name</Text>
+                        </View>
+                        <View style={styles.verticalline}>
+                            <Text >|</Text>
+                        </View>
+                        <View style={styles.listheading}>
+                            <Text style={styles.textSize}>Leave Type</Text>
+                        </View>
+                        <View style={styles.verticalline}>
+                            <Text >|</Text>
+                        </View>
+                        <View style={styles.listheading}>
+                            <Text style={styles.textSize}>From Date</Text>
+                        </View>
+                        <View style={styles.verticalline}>
+                            <Text >|</Text>
+                        </View>
+                        <View style={styles.listheading}>
+                            <Text style={styles.textSize}>To Date</Text>
+                        </View>
+                        <View style={styles.verticalline}>
+                            <Text >|</Text>
+                        </View>
+                        <View style={styles.listheading}>
+                            <Text style={styles.textSize}>Status</Text>
+                        </View>
+                        <View style={styles.verticalline}>
+                            <Text >|</Text>
+                        </View>
+                        <View style={styles.listheading}>
+                            <Text style={styles.textSize}>Reason</Text>
+                        </View>
+                        <View style={styles.verticalline}>
+                            <Text >|</Text>
+                        </View>
+                        <View style={styles.listheadingAction}>
+                            <Text style={styles.textSize}>Action</Text>
+                        </View>
+                    </View>
+                    <FlatList
+                        data={leavelist}
+                        renderItem={Item}
+                        keyExtractor={item => item.i}
+                    />
+                </View>
+            }
         </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-    list: {
-        flexDirection: 'row',
-        margin: 10,
-        padding: 5,
-        borderRadius: 5,
-        borderColor: 'black',
-        borderWidth: 2
-    },
     textSize: {
         fontSize: 18,
         marginLeft: 5,
@@ -173,14 +172,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: "black"
     },
-    
     listheading: {
         width: 100,
-        backgroundColor: 'coral'
+        justifyContent: "center"
+
     },
     listheadingAction: {
         width: 120,
-        backgroundColor: 'coral'
+        justifyContent: "center"
     },
     listbody: {
         fontSize: 15,
@@ -189,7 +188,7 @@ const styles = StyleSheet.create({
         color: 'black'
     },
     verticalline: {
-        backgroundColor: 'coral'
+        justifyContent: "center"
     },
     textCaptital: {
         textTransform: 'capitalize',
@@ -204,6 +203,42 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
     },
+    edit: {
+        backgroundColor: 'dodgerblue',
+        borderRadius: 5,
+        width: 70,
+        alignItems: "center",
+        paddingVertical: 10,
+        margin: 5
+    },
+    edittext: {
+        fontSize: 15,
+        fontWeight: "bold"
+    },
+    delete: {
+        backgroundColor: 'green',
+        borderRadius: 5,
+        width: 70,
+        alignItems: "center",
+        paddingVertical: 10,
+        margin: 5
+    },
+    deletetext: {
+        fontSize: 15,
+        fontWeight: "bold"
+    },
+    indicator: {
+
+        alignItems: "center",
+        marginHorizontal: 150
+    },
+    indicatorWrapper: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    indicatorText: {
+        fontSize: 18,
+    }
 })
 
 export default AllLeaves;

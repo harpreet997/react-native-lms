@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { StyleSheet, Text, View, FlatList, Button, Alert, Modal, Image } from "react-native";
+import { StyleSheet, Text, View, FlatList, Alert, Modal, TouchableOpacity, Image } from "react-native";
 import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
 import { deleteLeave } from "../../api_methods/post_methods/postmethod";
 import EditLeaves from "./EditLeaves";
@@ -21,7 +21,6 @@ const PendingLeaves = () => {
             })
     }, [leavelist]);
 
-
     const handleOpenModal = (id) => {
         setModalVisible(true)
         setEditStatus(id)
@@ -41,72 +40,74 @@ const PendingLeaves = () => {
             })
     }
 
-    const Item = ({ item, i }) => {
-        return (
-            <View key={i} style={{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black' }}>
-                <View style={styles.listheading}>
-                    <Text style={[styles.listbody, styles.textCaptital]}>{item.employeeName}</Text>
-                </View>
-                <View style={styles.verticalline}>
-                    <Text >|</Text>
-                </View>
-                <View style={styles.listheading}>
-                    <Text style={styles.listbody}>{item.leaveType}</Text>
-                </View>
-                <View style={styles.verticalline}>
-                    <Text >|</Text>
-                </View>
-                <View style={styles.listheading}>
-                    <Text style={styles.listbody}>{item.fromDate.substring(0, 10)}</Text>
-                </View>
-                <View style={styles.verticalline}>
-                    <Text >|</Text>
-                </View>
-                <View style={styles.listheading}>
-                    <Text style={styles.listbody}>{item.toDate.substring(0, 10)}</Text>
-                </View>
-                <View style={styles.verticalline}>
-                    <Text >|</Text>
-                </View>
-                <View style={styles.listheading}>
-                    <Text style={styles.listbody}>{item.status}</Text>
-                </View>
-                <View style={styles.verticalline}>
-                    <Text >|</Text>
-                </View>
-                <View style={styles.listheading}>
-                    <Text style={styles.listbody}>{item.reason}</Text>
-                </View>
-                <View style={styles.verticalline}>
-                    <Text >|</Text>
-                </View>
-                <View style={{ flexDirection: 'row', backgroundColor: 'coral' }}>
-                    <Button title='Edit' color={'green'} onPress={() => handleOpenModal(item._id)} />
-                    <Text>|</Text>
-                    <Button title='Delete' onPress={() => DeleteLeaves(item._id)} />
-                </View>
-                <Modal
-                    style={{ backgroundColor: "lightblue" }}
-                    animationType="slide"
-                    transparent={true}
-                    visible={editstatus === item._id ? modalVisible : false}
-                    onRequestClose={() => {
-                        setTimeout(() => {
-                            setModalVisible(!modalVisible);
-                        }, 2000)
-
-                    }}>
-                    <EditLeaves leavelist={item} handleCloseModal={handleCloseModal} />
-                </Modal>
+    const Item = ({ item, index }) => (
+        <View key={index} style={[{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black', margin: 3 }, 
+        (index % 2 === 0) ? { backgroundColor: "coral" } : { backgroundColor: "yellow" }]}>
+            <View style={styles.listheading}>
+                <Text style={[styles.listbody, styles.textCaptital]}>{item.employeeName}</Text>
             </View>
-        )
-    };
+            <View style={styles.verticalline}>
+                <Text >|</Text>
+            </View>
+            <View style={styles.listheading}>
+                <Text style={styles.listbody}>{item.leaveType}</Text>
+            </View>
+            <View style={styles.verticalline}>
+                <Text >|</Text>
+            </View>
+            <View style={styles.listheading}>
+                <Text style={styles.listbody}>{item.fromDate.substring(0, 10)}</Text>
+            </View>
+            <View style={styles.verticalline}>
+                <Text >|</Text>
+            </View>
+            <View style={styles.listheading}>
+                <Text style={styles.listbody}>{item.toDate.substring(0, 10)}</Text>
+            </View>
+            <View style={styles.verticalline}>
+                <Text >|</Text>
+            </View>
+            <View style={styles.listheading}>
+                <Text style={styles.listbody}>{item.status}</Text>
+            </View>
+            <View style={styles.verticalline}>
+                <Text >|</Text>
+            </View>
+            <View style={styles.listheading}>
+                <Text style={styles.listbody}>{item.reason}</Text>
+            </View>
+            <View style={styles.verticalline}>
+                <Text >|</Text>
+            </View>
+            <TouchableOpacity style={styles.edit} onPress={() => handleOpenModal(item._id)}>
+                <Text style={styles.edittext}>Edit </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.delete} onPress={() => DeleteLeaves(item._id)}>
+                <Text style={styles.deletetext}>Delete </Text>
+            </TouchableOpacity>
+
+            <Modal
+                style={{ backgroundColor: "lightblue" }}
+                animationType="slide"
+                transparent={true}
+                visible={editstatus === item._id ? modalVisible : false}
+                onRequestClose={() => {
+                    setTimeout(() => {
+                        setModalVisible(!modalVisible);
+                    }, 1000)
+
+                }}>
+                <EditLeaves leavelist={item} handleCloseModal={handleCloseModal} />
+            </Modal>
+        </View>
+    );
+
 
     return (
         <ScrollView horizontal={true} style={{ flex: 1, margin: 2 }}>
-            <View>
+            <View >
                 {pendingleaves.length > 0 ?
-                    <View style={{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black' }}>
+                    <View style={{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black', margin: 3 }}>
                         <View style={styles.listheading}>
                             <Text style={styles.textSize}>Name</Text>
                         </View>
@@ -155,21 +156,12 @@ const PendingLeaves = () => {
                         renderItem={Item}
                         keyExtractor={item => item.i}
                     /> : <Image source={require('../../images/NoRecord.png')} />}
-
             </View>
         </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-    list: {
-        flexDirection: 'row',
-        margin: 10,
-        padding: 5,
-        borderRadius: 5,
-        borderColor: 'black',
-        borderWidth: 2
-    },
     textSize: {
         fontSize: 18,
         marginLeft: 5,
@@ -177,14 +169,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: "black"
     },
-
     listheading: {
         width: 100,
-        backgroundColor: 'coral'
+        justifyContent: "center"
+
     },
     listheadingAction: {
         width: 120,
-        backgroundColor: 'coral'
+        justifyContent: "center"
     },
     listbody: {
         fontSize: 15,
@@ -193,7 +185,7 @@ const styles = StyleSheet.create({
         color: 'black'
     },
     verticalline: {
-        backgroundColor: 'coral'
+        justifyContent: "center"
     },
     textCaptital: {
         textTransform: 'capitalize',
@@ -208,6 +200,30 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
     },
+    edit: {
+        backgroundColor: 'dodgerblue',
+        borderRadius: 5,
+        width: 70,
+        alignItems: "center",
+        paddingVertical: 10,
+        margin: 5
+    },
+    edittext: {
+        fontSize: 15,
+        fontWeight: "bold"
+    },
+    delete: {
+        backgroundColor: 'green',
+        borderRadius: 5,
+        width: 70,
+        alignItems: "center",
+        paddingVertical: 10,
+        margin: 5
+    },
+    deletetext: {
+        fontSize: 15,
+        fontWeight: "bold"
+    }
 })
 
 export default PendingLeaves;

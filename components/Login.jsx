@@ -2,23 +2,28 @@ import { useState } from "react";
 import { ScrollView, View, Text, TextInput, StyleSheet, Alert, TouchableOpacity } from "react-native";
 import { login } from "../api_methods/post_methods/postmethod";
 
-export const Login = (props) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+const Login = (props) => {
+  const [logindata, setLoginData] = useState({
+    email: "",
+    password: ""
+  })
+
+  const handleChange = (text, input) => {
+    setLoginData({
+      ...logindata,
+      [input]: text
+    })
+  }
 
   const handlePress = () => {
-    if (email === undefined) {
+    if (logindata.email === "") {
       Alert.alert("Please enter email address");
     }
-    else if (password === undefined) {
+    else if (logindata.password === "") {
       Alert.alert("Please enter the password");
     }
     else {
-      const payload = {
-        email: email,
-        password: password
-      }
-      login(payload)
+      login(logindata)
         .then((response) => {
           Alert.alert(response.data.message)
           setTimeout(() => {
@@ -38,10 +43,10 @@ export const Login = (props) => {
       <View style={styles.main}>
         <Text style={styles.text}>Email Address: </Text>
         <TextInput style={styles.textbox} placeholder='Enter Email Address' keyboardType="email-address" placeholderTextColor={"black"}
-          onChangeText={(text) => setEmail(text)} />
+          onChangeText={(text) => handleChange(text, 'email')} />
         <Text style={styles.text}>Password: </Text>
         <TextInput style={styles.textbox} placeholder='Enter Password' placeholderTextColor={"black"}
-          secureTextEntry={true} onChangeText={(text) => setPassword(text)} />
+          secureTextEntry={true} onChangeText={(text) => handleChange(text, 'password')} />
         <TouchableOpacity style={styles.login} onPress={handlePress}>
           <Text style={styles.logintext}>Login</Text>
         </TouchableOpacity>
@@ -112,3 +117,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 })
+
+export default Login

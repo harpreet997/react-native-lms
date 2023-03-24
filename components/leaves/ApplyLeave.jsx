@@ -1,73 +1,76 @@
 import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Alert, RefreshControl } from 'react-native'
-import React, { useState, useCallback} from 'react'
+import React, { useState, useCallback } from 'react'
 import DatePicker from 'react-native-modern-datepicker';
 import { Picker } from '@react-native-picker/picker';
 import { applyLeave } from '../../api_methods/post_methods/postmethod';
 
 
-export default function ApplyLeave(props) {
-    const [employeeName, setEmployeeName] = useState('');
-    const [leaveType, setLeaveType] = useState('');
-    const [fromDate, setFromDate] = useState('');
-    const [toDate, setToDate] = useState('');
-    const [reason, setReason] = useState('');
+const ApplyLeave = (props) => {
+    const [leavedata, setLeavedata] = useState({
+        employeeName: "",
+        reason: "",
+        leaveType: "",
+        fromDate: "",
+        toDate: ""
+    });
+
     const [refreshing, setRefreshing] = useState(false);
 
+    const handleChange = (text, input) => {
+        setLeavedata({
+            ...leavedata,
+            [input]: text
+        });
+    };
+
     const handleApplyLeave = () => {
-        const payload = {
-            employeeName: employeeName,
-            reason: reason,
-            leaveType: leaveType,
-            fromDate: fromDate,
-            toDate: toDate
-        }
-       
-        applyLeave(payload)
-        .then((response) => {
-            Alert.alert(response.data.message);
-            setTimeout(() => {
-                props.navigation.navigate("All Leaves")
-            }, 2000)
-        }
-        )
-        .catch((error) => {
-            Alert.alert(error.response.data.message);
-        })
+        applyLeave(leavedata)
+            .then((response) => {
+                Alert.alert(response.data.message);
+                setLeavedata({})
+                setTimeout(() => {
+                    props.navigation.navigate("All Leaves")
+                }, 2000)
+            }
+            )
+            .catch((error) => {
+                Alert.alert(error.response.data.message);
+            })
     }
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
-          setRefreshing(false);
+            setRefreshing(false);
         }, 100);
-      }, []);
+    }, []);
 
     return (
         <ScrollView style={styles.container} refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
+        }>
             <View style={styles.main}>
                 <Text style={styles.text}>Employee Name: </Text>
                 <TextInput style={styles.textbox} placeholder='Enter Employee Name' placeholderTextColor={"black"}
-                    onChangeText={(text) => setEmployeeName(text)} />
+                    onChangeText={(text) => handleChange(text, 'employeeName')} />
                 <Text style={styles.text}>Leave Type: </Text>
                 <Picker
-                    onValueChange={(itemValue) => setLeaveType(itemValue)}
-                    selectedValue={leaveType}
+                    onValueChange={(itemValue) => handleChange(itemValue, 'leaveType')}
+                    selectedValue={leavedata.leaveType}
                 >
                     <Picker.Item label="Select Leave Type" value="" />
                     <Picker.Item label="Sick Leave" value="SL" />
                     <Picker.Item label="Casual Leave" value="CL" />
                     <Picker.Item label="Half day" value="Half Day" />
                 </Picker>
-               
+
                 <Text style={styles.text}>From Date: </Text>
-                <DatePicker mode="calendar" onDateChange={setFromDate} />
+                <DatePicker style={styles.datapicker} mode="calendar" onDateChange={(text) => handleChange(text, 'fromDate')} />
                 <Text style={styles.text}>To Date: </Text>
-                <DatePicker mode="calendar" onDateChange={setToDate} />
+                <DatePicker style={styles.datapicker} mode="calendar" onDateChange={(text) => handleChange(text, 'toDate')} />
                 <Text style={styles.text}>Reason: </Text>
                 <TextInput multiline={true}
-                    numberOfLines={4} style={styles.textbox} onChangeText={(text) => setReason(text)} placeholder="Reason" 
+                    numberOfLines={4} style={styles.textbox} onChangeText={(text) => handleChange(text, 'reason')} placeholder="Enter Reason"
                     placeholderTextColor={"black"} />
                 <TouchableOpacity style={styles.login} onPress={handleApplyLeave}>
                     <Text style={styles.logintext} >Apply Leave</Text>
@@ -129,5 +132,10 @@ const styles = StyleSheet.create({
     logintext: {
         fontSize: 18,
         fontWeight: "bold"
+    },
+    datapicker: {
+        backgroundColor: "lightgreen",
     }
 })
+
+export default ApplyLeave

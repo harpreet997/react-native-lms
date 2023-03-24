@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
 import { getEmployees } from '../api_methods/get_methods/getmethods';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import ApprovedLeaves from './leaves/ApprovedLeaves';
+import Leaves from './leaves/Leaves';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Profile from './profile/Profile';
 import ApplyLeave from './leaves/ApplyLeave';
@@ -20,9 +20,7 @@ export const Home = (props) => {
     let headers = {
         authorization: token
     }
-
-    console.log(token)
-
+    
     useEffect(() => {
         getEmployees(headers)
             .then((response) => {
@@ -34,11 +32,6 @@ export const Home = (props) => {
     }, []);
 
     return (
-        // <Tab.Navigator>
-        //     <Tab.Screen name="All Leaves" component={AllLeaves} />
-        //     <Tab.Screen name="Pending Leaves" component={PendingLeaves} />
-        //     <Tab.Screen name="Approved Leaves" component={ApprovedLeaves} />
-        // </Tab.Navigator>
         <Drawer.Navigator screenOptions={{
             activeTintColor: '#e91e63',
             itemStyle: {marginVertical: 5},
@@ -46,7 +39,7 @@ export const Home = (props) => {
           drawerContent={props => <CustomSidebar {...props}/>}>
             <Drawer.Screen name="Profile" component={Profile} />
             <Drawer.Screen name="Apply Leave" component={ApplyLeave} />
-            <Drawer.Screen name="All Leaves" component={ApprovedLeaves} />
+            <Drawer.Screen name="All Leaves" component={Leaves} />
             <Drawer.Screen name="Employees" component={() => <EmployeesList headers={headers}/>} />
             <Drawer.Screen name="Projects" component={() => <ProjectList headers={headers}/>} />
         </Drawer.Navigator>

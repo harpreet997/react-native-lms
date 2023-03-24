@@ -4,26 +4,27 @@ import { Picker } from '@react-native-picker/picker';
 import DatePicker from 'react-native-modern-datepicker';
 import { editLeave } from '../../api_methods/post_methods/postmethod';
 
-const EditLeaves = ({ leavelist, handleCloseModal}) => {
-    const [employeeName, setEmployeeName] = useState(leavelist.employeeName);
-    const [leaveType, setLeaveType] = useState(leavelist.leaveType);
-    const [fromDate, setFromDate] = useState(leavelist.fromDate.substring(0, 10));
-    const [toDate, setToDate] = useState(leavelist.toDate.substring(0, 10));
-    const [reason, setReason] = useState(leavelist.reason);
-    const [status, setStatus] = useState(leavelist.status);
-    const id = leavelist._id;
+const EditLeaves = ({ leavelist, handleCloseModal }) => {
+
+    const [editleavedata, setEditLeavedata] = useState({
+        employeeName: leavelist.employeeName,
+        reason: leavelist.reason,
+        leaveType: leavelist.leaveType,
+        fromDate: leavelist.fromDate.substring(0, 10),
+        toDate: leavelist.toDate.substring(0, 10),
+        status: leavelist.status,
+        _id: leavelist._id
+    });
+
+    const handleChange = (text, input) => {
+        setEditLeavedata({
+            ...editleavedata,
+            [input]: text
+        })
+    }
 
     const UpdateStatus = (id) => {
-        const payload = {
-            employeeName: employeeName,
-            leaveType: leaveType,
-            fromDate: fromDate,
-            toDate: toDate,
-            status: status,
-            reason: reason,
-            _id: id
-        }
-        editLeave(id, payload)
+        editLeave(id, editleavedata)
             .then((response) => {
                 Alert.alert(response.data.message);
                 handleCloseModal();
@@ -39,21 +40,24 @@ const EditLeaves = ({ leavelist, handleCloseModal}) => {
             <View style={styles.modalView}>
                 <Text style={styles.modalHeading}>Edit Leave Status</Text>
                 <Text style={styles.text}>Employee Name: </Text>
-                <TextInput style={styles.textbox} value={employeeName} onChangeText={(text) => setEmployeeName(text)} editable={false}
+                <TextInput style={styles.textbox} value={editleavedata.employeeName}
+                    onChangeText={(text) => handleChange(text, 'employeeName')} editable={false}
                     placeholder="Employee Name" />
                 <Text style={styles.text}>Leave Type: </Text>
-                <TextInput style={styles.textbox} value={leaveType} onChangeText={(text) => setLeaveType(text)} editable={false}
+                <TextInput style={styles.textbox} value={editleavedata.leaveType}
+                    onChangeText={(text) => handleChange(text, 'leaveType')} editable={false}
                     placeholder="Leave Type" />
                 <Text style={styles.text}>From Date: </Text>
-                <DatePicker mode="calendar" selected={fromDate} onDateChange={setFromDate} />
+                <DatePicker style={styles.datepicker} mode="calendar" selected={editleavedata.fromDate}
+                    onDateChange={(text) => handleChange(text, 'fromDate')} />
                 <Text style={styles.text}>To Date: </Text>
-                <DatePicker mode="calendar" selected={toDate} onDateChange={setToDate} />
+                <DatePicker style={styles.datepicker} mode="calendar" selected={editleavedata.toDate}
+                    onDateChange={(text) => handleChange(text, 'toDate')} />
                 <Text style={styles.text}>Leave Status: </Text>
                 <Picker
-                style={styles.select}
-                    selectedValue={status}
-                    
-                    onValueChange={(itemValue) => setStatus(itemValue)}
+                    style={styles.select}
+                    selectedValue={editleavedata.status}
+                    onValueChange={(itemValue) => handleChange(itemValue, 'status')}
                 >
                     <Picker.Item label="Approved" value="Approved" />
                     <Picker.Item label="Pending" value="Pending" />
@@ -61,9 +65,9 @@ const EditLeaves = ({ leavelist, handleCloseModal}) => {
                 </Picker>
                 <Text style={styles.text}>Reason: </Text>
                 <TextInput multiline={true}
-                    numberOfLines={4} style={styles.textbox} value={reason} onChangeText={(text) => setReason(text)} placeholder="Reason" 
-                    placeholderTextColor={"black"}/>
-                <Button title='Update' onPress={() => UpdateStatus(id)} />
+                    numberOfLines={4} style={styles.textbox} value={editleavedata.reason} onChangeText={(text) => setReason(text, 'reason')} placeholder="Reason"
+                    placeholderTextColor={"black"} />
+                <Button title='Update' onPress={() => UpdateStatus(editleavedata._id)} />
             </View>
         </ScrollView>
     );
@@ -101,13 +105,16 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         paddingLeft: 10,
         marginBottom: 10,
-        marginRight: 10, 
+        marginRight: 10,
         color: "black"
     },
     select: {
         borderWidth: 1,
-        borderRadius: 5, 
+        borderRadius: 5,
         borderColor: "black"
+    },
+    datepicker: {
+        backgroundColor: "lightgreen"
     }
 })
 

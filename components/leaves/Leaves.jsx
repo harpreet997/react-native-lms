@@ -6,7 +6,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 const Tab = createMaterialTopTabNavigator();
 
-const ApprovedLeaves = () => {
+const Leaves = () => {
     return (
         <Tab.Navigator>
             <Tab.Screen name="All Leaves" component={AllLeaves} />
@@ -16,4 +16,4 @@ const ApprovedLeaves = () => {
     )
 }
 
-export default ApprovedLeaves;
+export default Leaves;
