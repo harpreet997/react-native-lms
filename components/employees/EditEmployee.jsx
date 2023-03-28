@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, Alert, TextInput, Button } from 'react-native';
+import { View, Text, ScrollView, Alert, TextInput, Button } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { editEmployee } from '../../api_methods/post_methods/postmethod';
 import { getProjects } from '../../api_methods/get_methods/getmethods';
+import styles from '../../globalstyles/GlobalStyles';
 
 const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal }) => {
     const [name, setName] = useState(data.name)
@@ -76,14 +77,14 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
         <ScrollView >
             <View style={styles.modalView}>
                 <Text style={styles.modalHeading}>Edit Employee</Text>
-                <Text style={styles.text}>Employee Name: </Text>
-                <TextInput style={styles.textbox} value={name} onChangeText={(text) => setName(text)}
+                <Text style={styles.editEmployeeText}>Employee Name: </Text>
+                <TextInput style={styles.editEmployeeTextbox} value={name} onChangeText={(text) => setName(text)}
                     placeholder="Employee Name" />
-                <Text style={styles.text}>Email Address: </Text>
-                <TextInput style={styles.textbox} value={email} onChangeText={(text) => setEmail(text)}
+                <Text style={styles.editEmployeeText}>Email Address: </Text>
+                <TextInput style={styles.editEmployeeTextbox} value={email} onChangeText={(text) => setEmail(text)}
                     keyboardType="email-address" placeholder="Email Address" />
 
-                <Text style={styles.text}>Project Assigned: </Text>
+                <Text style={styles.editEmployeeText}>Project Assigned: </Text>
                 <Picker style={styles.select} onValueChange={(itemValue) => setAssignedProject(itemValue)}>
                     <Picker.Item label="Bench" value="Bench" />
                     {projectlist.map((item, index) => {
@@ -97,47 +98,5 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
         </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    modalView: {
-        margin: 15,
-        backgroundColor: 'lightgreen',
-        borderRadius: 20,
-        padding: 35,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    text: {
-        marginBottom: 10,
-        fontSize: 17,
-        fontWeight: 'bold',
-        color: "black"
-    },
-    modalHeading: {
-        marginBottom: 10,
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: "black"
-    },
-    textbox: {
-        borderWidth: 1,
-        borderColor: 'black',
-        paddingLeft: 10,
-        marginBottom: 10,
-        marginRight: 10,
-        color: "black"
-    },
-    select: {
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: "black"
-    }
-})
 
 export default EditEmployee;

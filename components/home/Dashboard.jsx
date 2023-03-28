@@ -1,54 +1,23 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
+import { ScrollView } from 'react-native-gesture-handler'
+import styles from '../../globalstyles/GlobalStyles';
+
 
 export default function Dashboard(props) {
   return (
+    <ScrollView>
     <View style={styles.main}>
-      <Text style={styles.text}>Leave Management System</Text>
-      <TouchableOpacity style={styles.login} onPress={() => props.navigation.navigate("Login")}>
+      <Image style={styles.image} source={require('../../images/lms.jpg')} />
+      <Text style={styles.startScreentext}>Leave Management System</Text>
+      <TouchableOpacity style={styles.loginOption} onPress={() => props.navigation.navigate("Login")}>
         <Text style={styles.logintext}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.signup} onPress={() => props.navigation.navigate("Signup")}>
+      <TouchableOpacity style={styles.signupOption} onPress={() => props.navigation.navigate("Signup")}>
         <Text style={styles.signuptext}>Signup</Text>
       </TouchableOpacity>
     </View>
+    </ScrollView>
   )
 }
 
-const styles = StyleSheet.create({
-    main: {
-        alignItems: "center",
-        flex: 1,
-        backgroundColor: "coral"
-    },
-    text: {
-        fontSize: 22,
-        fontWeight: "bold",
-        marginBottom: 20,
-        marginVertical: "50%",
-        color: "black"
-    },
-    login: {
-        backgroundColor: 'lightgreen',
-        borderRadius: 100, 
-        width: 200,
-        alignItems: "center",
-        paddingVertical: 10, 
-    },
-    signup: {
-        backgroundColor: 'lightgreen',
-        borderRadius: 100, 
-        width: 200,
-        alignItems: "center",
-        paddingVertical: 10,
-        marginVertical: 20
-    },
-    logintext: {
-        fontSize: 18,
-        color: "black"
-    },
-    signuptext: {
-        fontSize: 18,
-        color: "black"
-    }
-})

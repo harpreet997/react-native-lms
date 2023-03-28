@@ -15,7 +15,7 @@ const CustomSidebar = (props) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <Image
-       source={require('../../images/HeaderLogo.png')}
+       source={require('../../images/headerlogo.png')}
         style={styles.sideMenuProfileIcon}
       />
       <DrawerContentScrollView {...props}>

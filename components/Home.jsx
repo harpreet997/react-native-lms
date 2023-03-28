@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
 import { getEmployees } from '../api_methods/get_methods/getmethods';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -9,6 +8,7 @@ import ApplyLeave from './leaves/ApplyLeave';
 import EmployeesList from './employees/EmployeesList';
 import ProjectList from './projects/ProjectList';
 import CustomSidebar from './sidebar/CustomSidebar';
+// import DailyStatus from './status/DailyStatus';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -42,16 +42,7 @@ export const Home = (props) => {
             <Drawer.Screen name="All Leaves" component={Leaves} />
             <Drawer.Screen name="Employees" component={() => <EmployeesList headers={headers}/>} />
             <Drawer.Screen name="Projects" component={() => <ProjectList headers={headers}/>} />
+            {/* <Drawer.Screen name="Daily Status" component={DailyStatus} /> */}
         </Drawer.Navigator>
     );
 }
-
-
-const styles = StyleSheet.create({
-    main: {
-        backgroundColor: 'lightgreen'
-    },
-    textSize: {
-        fontSize: 20
-    }
-})

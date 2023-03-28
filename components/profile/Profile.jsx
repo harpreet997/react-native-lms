@@ -1,14 +1,13 @@
-import { View, Image, StyleSheet, TouchableOpacity, Text } from 'react-native'
-import React from 'react'
+import { View, Image, TouchableOpacity, Text } from 'react-native'
+import styles from '../../globalstyles/GlobalStyles'
 
-export default function Profile(props) {
-
+const Profile = (props) => {
   const handleLogout = () => {
     props.navigation.navigate("Dashboard")
   }
   return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={require('../../images/Profile.png')} />
+    <View style={styles.profileContainer}>
+      <Image style={styles.profileImage} source={require('../../images/Profile.png')} />
       <TouchableOpacity style={styles.logout} onPress={handleLogout}>
           <Text style={styles.logouttext}>Logout</Text>
         </TouchableOpacity>
@@ -16,27 +15,4 @@ export default function Profile(props) {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center"
-  },
-  image: {
-    marginVertical: 10,
-    width: 300, 
-    height: 300   
-  }, 
-  logout: {
-    backgroundColor: 'dodgerblue',
-    borderRadius: 100,
-    width: 200,
-    alignItems: "center",
-    paddingVertical: 10,
-    marginHorizontal: "15%"
-  },
-  logouttext: {
-    fontSize: 18,
-    fontWeight: "bold"
-  }
-  
-})
+export default Profile

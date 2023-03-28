@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         fontSize: 17,
         fontWeight: 'bold',
-        color: "black"
+        color: "black",
+        textAlign: 'left',
     },
     modalHeading: {
         marginBottom: 10,

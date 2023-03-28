@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { StyleSheet, Text, View, FlatList, Alert, Modal, TouchableOpacity, Image } from "react-native";
+import { Text, View, FlatList, Alert, Modal, TouchableOpacity, Image } from "react-native";
 import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
 import { deleteLeave } from "../../api_methods/post_methods/postmethod";
 import EditLeaves from "./EditLeaves";
+import styles from "../../globalstyles/GlobalStyles";
 
 const PendingLeaves = () => {
     const [leavelist, setLeaveList] = useState([]);
@@ -160,70 +161,5 @@ const PendingLeaves = () => {
         </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({
-    textSize: {
-        fontSize: 18,
-        marginLeft: 5,
-        marginRight: 5,
-        fontWeight: 'bold',
-        color: "black"
-    },
-    listheading: {
-        width: 100,
-        justifyContent: "center"
-
-    },
-    listheadingAction: {
-        width: 120,
-        justifyContent: "center"
-    },
-    listbody: {
-        fontSize: 15,
-        marginLeft: 5,
-        marginRight: 5,
-        color: 'black'
-    },
-    verticalline: {
-        justifyContent: "center"
-    },
-    textCaptital: {
-        textTransform: 'capitalize',
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-    },
-    text: {
-        marginBottom: 10,
-        fontSize: 15,
-        fontWeight: 'bold',
-    },
-    edit: {
-        backgroundColor: 'dodgerblue',
-        borderRadius: 5,
-        width: 70,
-        alignItems: "center",
-        paddingVertical: 10,
-        margin: 5
-    },
-    edittext: {
-        fontSize: 15,
-        fontWeight: "bold"
-    },
-    delete: {
-        backgroundColor: 'green',
-        borderRadius: 5,
-        width: 70,
-        alignItems: "center",
-        paddingVertical: 10,
-        margin: 5
-    },
-    deletetext: {
-        fontSize: 15,
-        fontWeight: "bold"
-    }
-})
 
 export default PendingLeaves;

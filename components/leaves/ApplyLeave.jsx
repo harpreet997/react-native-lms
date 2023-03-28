@@ -1,9 +1,9 @@
-import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Alert, RefreshControl } from 'react-native'
+import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, RefreshControl } from 'react-native'
 import React, { useState, useCallback } from 'react'
 import DatePicker from 'react-native-modern-datepicker';
 import { Picker } from '@react-native-picker/picker';
 import { applyLeave } from '../../api_methods/post_methods/postmethod';
-
+import styles from '../../globalstyles/GlobalStyles';
 
 const ApplyLeave = (props) => {
     const [leavedata, setLeavedata] = useState({
@@ -27,8 +27,8 @@ const ApplyLeave = (props) => {
         applyLeave(leavedata)
             .then((response) => {
                 Alert.alert(response.data.message);
-                setLeavedata({})
                 setTimeout(() => {
+                    setLeavedata({})
                     props.navigation.navigate("All Leaves")
                 }, 2000)
             }
@@ -46,10 +46,10 @@ const ApplyLeave = (props) => {
     }, []);
 
     return (
-        <ScrollView style={styles.container} refreshControl={
+        <ScrollView style={styles.applyLeaveContainer} refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-            <View style={styles.main}>
+            <View style={styles.applyLeaveMain}>
                 <Text style={styles.text}>Employee Name: </Text>
                 <TextInput style={styles.textbox} placeholder='Enter Employee Name' placeholderTextColor={"black"}
                     onChangeText={(text) => handleChange(text, 'employeeName')} />
@@ -72,70 +72,12 @@ const ApplyLeave = (props) => {
                 <TextInput multiline={true}
                     numberOfLines={4} style={styles.textbox} onChangeText={(text) => handleChange(text, 'reason')} placeholder="Enter Reason"
                     placeholderTextColor={"black"} />
-                <TouchableOpacity style={styles.login} onPress={handleApplyLeave}>
-                    <Text style={styles.logintext} >Apply Leave</Text>
+                <TouchableOpacity style={styles.applyLeave} onPress={handleApplyLeave}>
+                    <Text style={styles.applyLeaveText} >Apply Leave</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'lightgreen',
-        paddingTop: 20,
-
-    },
-    main: {
-        justifyContent: 'center',
-        paddingBottom: 30
-    },
-    text: {
-        marginLeft: 10,
-        marginBottom: 10,
-        fontSize: 17,
-        fontWeight: 'bold',
-        textAlign: 'left',
-        color: "black"
-    },
-    textbox: {
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: 'black',
-        paddingLeft: 10,
-        marginBottom: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        color: "black"
-    },
-    items: {
-        fontSize: 20,
-        marginLeft: 10,
-        marginRight: 10,
-        backgroundColor: 'orange',
-        marginBottom: 5,
-        borderWidth: 1
-    },
-    button: {
-        margin: 10,
-        alignItems: 'center'
-    },
-    login: {
-        backgroundColor: 'dodgerblue',
-        borderRadius: 100,
-        width: 200,
-        alignItems: "center",
-        paddingVertical: 10,
-        marginHorizontal: "20%"
-    },
-    logintext: {
-        fontSize: 18,
-        fontWeight: "bold"
-    },
-    datapicker: {
-        backgroundColor: "lightgreen",
-    }
-})
 
 export default ApplyLeave
