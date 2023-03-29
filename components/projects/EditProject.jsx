@@ -41,9 +41,9 @@ const EditProject = ({data, id, headers, handleCloseEditProjectModal}) => {
                 <TextInput style={styles.editprojecttextbox} placeholder='Enter Project Name' placeholderTextColor={"black"}
                     value={editproject.name} onChangeText={(text) => handleChange(text, 'name')} />
                 <Text style={styles.editprojecttext}>Project Start Date: </Text>
-                <DatePicker style={{ backgroundColor: "lightgreen" }} selected={editproject.startAt} mode="calendar" onDateChange={(text) => handleChange(text, 'startAt')} />
+                <DatePicker style={{ backgroundColor: "lightgrey" }} selected={editproject.startAt} mode="calendar" onDateChange={(text) => handleChange(text, 'startAt')} />
                 <Text style={styles.editprojecttext}>Project End Date: </Text>
-                <DatePicker style={{ backgroundColor: "lightgreen" }} selected={editproject.endAt} mode="calendar" onDateChange={(text) => handleChange(text, 'endAt')} />
+                <DatePicker style={{ backgroundColor: "lightgrey" }} selected={editproject.endAt} mode="calendar" onDateChange={(text) => handleChange(text, 'endAt')} />
                 <Text style={styles.editprojecttext}>Client Name: </Text>
                 <TextInput style={styles.editprojecttextbox} placeholder='Enter Client Name' placeholderTextColor={"black"}
                    value={editproject.clientName}  onChangeText={(text) => handleChange(text, 'clientName')} />

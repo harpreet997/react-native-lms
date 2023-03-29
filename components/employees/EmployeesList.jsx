@@ -79,7 +79,8 @@ const EmployeesList = ({ headers }) => {
     }
 
     const Item = ({ item, index }) => (
-        <View key={index} style={[{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black', margin: 3 }, (index % 2 === 0) ? { backgroundColor: "coral" } : { backgroundColor: "yellow" }]}>
+        <View key={index} style={[styles.employeesListItems,
+        (index % 2 === 0) ? styles.primaryBackground : styles.secondaryBackground]}>
             <View style={styles.employeesListHeading}>
                 <Text style={[styles.listbody, styles.textCaptital]}>{item.name}</Text>
             </View>
@@ -136,36 +137,40 @@ const EmployeesList = ({ headers }) => {
                 <AddEmployee headers={headers} handleCloseAddModal={handleCloseAddModal} />
             </Modal>
 
-            <ScrollView horizontal={true}>
+            <ScrollView horizontal={true} style={{ backgroundColor: "lightgreen" }}>
                 {loading ?
                     <View style={styles.indicatorWrapper}>
                         <ActivityIndicator style={styles.indicator} size="large" />
                         <Text style={styles.indicatorText}>Loading ...</Text>
                     </View>
                     :
-                    <View style={{ width: "100%" }}>
-                        <View style={{ flexDirection: 'row', borderWidth: 1, borderRadius: 5, borderColor: 'black', margin: 3 }}>
-                            <View style={styles.employeesListHeading}>
-                                <Text style={styles.textSize}>Employee Name</Text>
+                    <View>
+                        {employeelist.length > 0 ?
+                            <View style={styles.listheadingContainer}>
+                                <View style={styles.employeesListHeading}>
+                                    <Text style={styles.textSize}>Employee Name</Text>
+                                </View>
+                                <View style={styles.verticalline}>
+                                    <Text >|</Text>
+                                </View>
+                                <View style={styles.employeesListHeading}>
+                                    <Text style={styles.textSize}>Email Address</Text>
+                                </View>
+                                <View style={styles.verticalline}>
+                                    <Text >|</Text>
+                                </View>
+                                <View style={styles.employeesListHeadingAction}>
+                                    <Text style={styles.textSize}>Action</Text>
+                                </View>
                             </View>
-                            <View style={styles.verticalline}>
-                                <Text >|</Text>
-                            </View>
-                            <View style={styles.employeesListHeading}>
-                                <Text style={styles.textSize}>Email Address</Text>
-                            </View>
-                            <View style={styles.verticalline}>
-                                <Text >|</Text>
-                            </View>
-                            <View style={styles.employeesListHeadingAction}>
-                                <Text style={styles.textSize}>Action</Text>
-                            </View>
-                        </View>
-                        <FlatList
-                            data={employeelist}
-                            renderItem={Item}
-                            keyExtractor={item => item.i}
-                        />
+                            : null}
+
+                        {employeelist.length > 0 ?
+                            <FlatList
+                                data={employeelist}
+                                renderItem={Item}
+                                keyExtractor={item => item.i}
+                            /> : <Image source={require('../../images/NoRecord.png')} />}
 
                     </View>}
             </ScrollView>

@@ -62,7 +62,7 @@ export default function AddEmployee({ headers, handleCloseAddModal }) {
                     onChangeText={(text) => setEmail(text)} />
 
                 <Text style={styles.addEmployeeText}>Project Assigned: </Text>
-                <Picker style={styles.select} onValueChange={(itemValue) => setAssignedProject(itemValue)}>
+                <Picker style={styles.selectProject} onValueChange={(itemValue) => setAssignedProject(itemValue)}>
                     <Picker.Item label="Select Project" value="" />
                     <Picker.Item label="Bench" value="Bench" />
                     {projectlist.map((item, index) => {

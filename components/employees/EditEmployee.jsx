@@ -85,7 +85,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                     keyboardType="email-address" placeholder="Email Address" />
 
                 <Text style={styles.editEmployeeText}>Project Assigned: </Text>
-                <Picker style={styles.select} onValueChange={(itemValue) => setAssignedProject(itemValue)}>
+                <Picker style={styles.selectProject} onValueChange={(itemValue) => setAssignedProject(itemValue)}>
                     <Picker.Item label="Bench" value="Bench" />
                     {projectlist.map((item, index) => {
                         return (

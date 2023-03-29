@@ -6,7 +6,7 @@ import styles from '../../globalstyles/GlobalStyles';
 
 export default function Dashboard(props) {
   return (
-    <ScrollView>
+    <ScrollView style={styles.homeContainer}>
     <View style={styles.main}>
       <Image style={styles.image} source={require('../../images/lms.jpg')} />
       <Text style={styles.startScreentext}>Leave Management System</Text>

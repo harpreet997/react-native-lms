@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Button, Alert, Modal, TouchableOpacity, ActivityIndicator, Image } from "react-native";
-import { getProjects } from '../../api_methods/get_methods/getmethods'
-import { deleteProject } from "../../api_methods/post_methods/postmethod";
-import AddProject from "./AddProject";
-import EditProject from "./EditProject";
-import styles from "../../globalstyles/GlobalStyles";
+import { Text, View, FlatList, ActivityIndicator, Image } from "react-native";
+import { getProjects } from '../../../api_methods/get_methods/getmethods'
+import styles from "../../../globalstyles/GlobalStyles";
 
-const ProjectList = ({ headers }) => {
+const UserProjectList = ({ headers }) => {
     const [projectlist, setProjectList] = useState([]);
-    const [addproject, setAddProject] = useState(false);
-    const [editproject, setEditProject] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [modalVisible, setModalVisible] = useState(false);
-
+    
+    
     useEffect(() => {
         getProjects(headers)
             .then((response) => {
@@ -23,38 +18,7 @@ const ProjectList = ({ headers }) => {
             .catch((error) => {
                 console.log(error);
             })
-    }, [projectlist, addproject, editproject]);
-
-
-    const AddProjectModal = () => {
-        setAddProject(true)
-    };
-
-    const handleCloseAddProjectModal = () => {
-        setAddProject(false);
-    }
-
-
-    const handleCloseEditProjectModal = () => {
-        setEditProject(false);
-    }
-
-    const DeleteProject = (id) => {
-        deleteProject(id, headers)
-            .then((response) => {
-                Alert.alert(response.data.message);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
-    const handleOpenModal = (id) => {
-        setModalVisible(true)
-        setEditProject(id)
-    }
-
-
+    }, [projectlist]);
 
     const Item = ({ item, index }) => (
         <View key={index} style={[styles.projectlistItems,
@@ -83,48 +47,11 @@ const ProjectList = ({ headers }) => {
             <View style={styles.verticalline}>
                 <Text >|</Text>
             </View>
-
-            <TouchableOpacity style={styles.projectedit} onPress={() => handleOpenModal(item._id)}>
-                <Text style={styles.edittext}>Edit </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.projectdelete} onPress={() => DeleteProject(item._id)}>
-                <Text style={styles.deletetext}>Delete </Text>
-            </TouchableOpacity>
-
-            <Modal
-                style={{ backgroundColor: "lightblue" }}
-                animationType="slide"
-                transparent={true}
-                visible={editproject === item._id ? modalVisible : false}
-                onRequestClose={() => {
-                    setTimeout(() => {
-                        setModalVisible(!modalVisible);
-                    }, 1000)
-
-                }}>
-                <EditProject data={item} id={item._id} headers={headers} handleCloseEditProjectModal={handleCloseEditProjectModal} />
-            </Modal>
-
         </View>
     );
 
 
     return (
-        <>
-            <Button title="Add Project" onPress={AddProjectModal} />
-            <Modal
-                style={{ backgroundColor: "lightblue" }}
-                animationType="slide"
-                transparent={true}
-                visible={addproject}
-                onRequestClose={() => {
-                    setTimeout(() => {
-                        setAddProject(false);
-                    }, 1000)
-
-                }}>
-                <AddProject headers={headers} handleCloseAddProjectModal={handleCloseAddProjectModal} />
-            </Modal>
             <ScrollView horizontal={true} style={{ backgroundColor: "lightgreen" }}>
                 {loading ?
                     <View style={styles.indicatorWrapper}>
@@ -159,9 +86,7 @@ const ProjectList = ({ headers }) => {
                                 <View style={styles.verticalline}>
                                     <Text >|</Text>
                                 </View>
-                                <View style={styles.projectlistheadingAction}>
-                                    <Text style={styles.textSize}>Action</Text>
-                                </View>
+                                
                             </View>
                             : null}
                         {projectlist.length > 0 ?
@@ -169,12 +94,11 @@ const ProjectList = ({ headers }) => {
                                 data={projectlist}
                                 renderItem={Item}
                                 keyExtractor={item => item.i}
-                            /> : <Image source={require('../../images/NoRecord.png')} />}
+                            /> : <Image source={require('../../../images/NoRecord.png')} />}
 
                     </View>}
             </ScrollView>
-        </>
     )
 }
 
-export default ProjectList;
+export default UserProjectList;

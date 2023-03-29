@@ -3,16 +3,19 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
 
     /*   styles started for Dashboard screen */
-    main: {
-        alignItems: "center",
+
+    homeContainer: {
         flex: 1,
         backgroundColor: "coral",
+    },
+
+    main: {
+        alignItems: "center",
     },
     startScreentext: {
         fontSize: 22,
         fontWeight: "bold",
         marginBottom: 10,
-        marginVertical: "15%",
         color: "black"
     },
     loginOption: {
@@ -54,7 +57,6 @@ const styles = StyleSheet.create({
         paddingTop: 20,
     },
     loginMain: {
-        justifyContent: 'center',
         borderWidth: 1,
         borderRadius: 5,
         borderColor: "black",
@@ -85,7 +87,8 @@ const styles = StyleSheet.create({
         width: 200,
         alignItems: "center",
         paddingVertical: 10,
-        marginHorizontal: "15%"
+        marginLeft: "auto",
+        marginRight: "auto"
     },
 
     /*   styles ended for login screen */
@@ -110,8 +113,8 @@ const styles = StyleSheet.create({
         width: 200,
         alignItems: "center",
         paddingVertical: 10,
-        marginHorizontal: "20%",
-        marginBottom: 10
+        marginLeft: "auto",
+        marginRight: "auto",
     },
 
     /*   styles ended for register screen */
@@ -119,7 +122,8 @@ const styles = StyleSheet.create({
     /*   styles started for profile screen */
     profileContainer: {
         flex: 1,
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: "lightgreen"
     },
     profileImage: {
         marginVertical: 10,
@@ -168,10 +172,21 @@ const styles = StyleSheet.create({
     datapicker: {
         backgroundColor: "lightgreen",
     },
+    selectLeave: {
+        color: "black"
+    },
 
     /*   styles ended for Apply Leave screen */
 
     /*   styles started for All Leaves, Pending Leaves, and Rejected Leaves, Project List screen */
+    LeaveListItems: {
+        flexDirection: 'row', 
+        borderWidth: 1, 
+        borderRadius: 5, 
+        borderColor: 'black', 
+        margin: 3
+    }, 
+
     textSize: {
         fontSize: 18,
         marginLeft: 5,
@@ -179,6 +194,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: "black"
     },
+    listheadingContainer: {
+        flexDirection: 'row', 
+        borderWidth: 1, 
+        borderRadius: 5, 
+        borderColor: 'black', 
+        margin: 3
+    }, 
+
     listheading: {
         width: 100,
         justifyContent: "center"
@@ -243,6 +266,23 @@ const styles = StyleSheet.create({
     /*   styles ended for All Leaves, Pending Leaves, and Rejected Leaves screen */
 
     /*   styles started for Employees List screen */
+
+    employeesListItems: {
+        flexDirection: 'row', 
+        borderWidth: 1, 
+        borderRadius: 5, 
+        borderColor: 'black', 
+        margin: 3
+    }, 
+
+    primaryBackground: {
+        backgroundColor: "#D6EEEE"
+    },
+
+    secondaryBackground: {
+        backgroundColor: "lightgrey"
+    },
+
     employeesListHeading: {
         width: "35%",
         justifyContent: "center"
@@ -259,7 +299,7 @@ const styles = StyleSheet.create({
     /*   styles started for Add Employee screen */
     modalView: {
         margin: 15,
-        backgroundColor: 'lightgreen',
+        backgroundColor: 'lightgrey',
         borderRadius: 20,
         padding: 35,
         shadowColor: '#000',
@@ -291,11 +331,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         color: "black"
     },
-    select: {
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: "black"
-    },
+   
 
     /*   styles ended for Add Employee screen */
 
@@ -316,9 +352,22 @@ const styles = StyleSheet.create({
         color: "black"
     },
 
+    selectProject: {
+        color: "black"
+    },
+
     /*   styles ended for Edit Employee screen */
 
-    /*   styles started for Employees List screen */
+    /*   styles started for Project List screen */
+
+    projectlistItems: {
+        flexDirection: 'row', 
+        borderWidth: 1, 
+        borderRadius: 5, 
+        borderColor: 'black', 
+        margin: 3
+    },
+
     projectlistheading: {
         width: "20%",
         justifyContent: "center"

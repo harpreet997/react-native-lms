@@ -41,9 +41,9 @@ export default function AddProject({headers, handleCloseAddProjectModal}) {
                 <TextInput style={styles.addprojecttextbox} placeholder='Enter Project Name' placeholderTextColor={"black"}
                     onChangeText={(text) => handleChange(text, 'name')} />
                 <Text style={styles.addprojecttext}>Project Start Date: </Text>
-                <DatePicker style={{ backgroundColor: "lightgreen" }} mode="calendar" onDateChange={(text) => handleChange(text, 'startAt')} />
+                <DatePicker style={{ backgroundColor: "lightgrey" }} mode="calendar" onDateChange={(text) => handleChange(text, 'startAt')} />
                 <Text style={styles.addprojecttext}>Project End Date: </Text>
-                <DatePicker style={{ backgroundColor: "lightgreen" }} mode="calendar" onDateChange={(text) => handleChange(text, 'endAt')} />
+                <DatePicker style={{ backgroundColor: "lightgrey" }} mode="calendar" onDateChange={(text) => handleChange(text, 'endAt')} />
                 <Text style={styles.addprojecttext}>Client Name: </Text>
                 <TextInput style={styles.addprojecttextbox} placeholder='Enter Client Name' placeholderTextColor={"black"}
                     onChangeText={(text) => handleChange(text, 'clientName')} />

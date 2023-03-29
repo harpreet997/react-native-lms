@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Alert, Modal, Image, ActivityIndicator, TouchableOpacity } from "react-native";
-import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
-import { deleteLeave } from "../../api_methods/post_methods/postmethod";
-import EditLeaves from "./EditLeaves";
-import styles from "../../globalstyles/GlobalStyles";
+import { Text, View, FlatList, Image, ActivityIndicator } from "react-native";
+import { getAllLeaves } from "../../../api_methods/get_methods/getmethods";
+import styles from "../../../globalstyles/GlobalStyles";
 
 const RejectedLeaves = () => {
     const [leavelist, setLeaveList] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [editstatus, setEditStatus] = useState(false);
     const [loading, setLoading] = useState(true);
     const rejectedleaves = leavelist.filter(item => item.status === 'Rejected')
 
@@ -25,25 +21,7 @@ const RejectedLeaves = () => {
     }, [leavelist]);
 
 
-    const handleOpenModal = (id) => {
-        setModalVisible(true)
-        setEditStatus(id)
-    }
-
-    const handleCloseModal = () => {
-        setModalVisible(false)
-    }
-
-    const DeleteLeaves = (id) => {
-        deleteLeave(id)
-            .then((response) => {
-                Alert.alert(response.data.message);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
+    
     const Item = ({ item, index }) => {
         return (
             <View key={index} style={[styles.LeaveListItems,
@@ -81,28 +59,6 @@ const RejectedLeaves = () => {
                 <View style={styles.listheading}>
                     <Text style={styles.listbody}>{item.reason}</Text>
                 </View>
-                <View style={styles.verticalline}>
-                    <Text >|</Text>
-                </View>
-                <TouchableOpacity style={styles.edit} onPress={() => handleOpenModal(item._id)}>
-                    <Text style={styles.edittext}>Edit </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.delete} onPress={() => DeleteLeaves(item._id)}>
-                    <Text style={styles.deletetext}>Delete </Text>
-                </TouchableOpacity>
-                <Modal
-                    style={{ backgroundColor: "lightblue" }}
-                    animationType="slide"
-                    transparent={true}
-                    visible={editstatus === item._id ? modalVisible : false}
-                    onRequestClose={() => {
-                        setTimeout(() => {
-                            setModalVisible(!modalVisible);
-                        }, 2000)
-
-                    }}>
-                    <EditLeaves leavelist={item} handleCloseModal={handleCloseModal} />
-                </Modal>
             </View>
         )
     };
@@ -151,12 +107,6 @@ const RejectedLeaves = () => {
                             <View style={styles.listheading}>
                                 <Text style={styles.textSize}>Reason</Text>
                             </View>
-                            <View style={styles.verticalline}>
-                                <Text >|</Text>
-                            </View>
-                            <View style={styles.listheadingAction}>
-                                <Text style={styles.textSize}>Action</Text>
-                            </View>
                         </View>
                         : null}
 
@@ -165,7 +115,7 @@ const RejectedLeaves = () => {
                             data={rejectedleaves}
                             renderItem={Item}
                             keyExtractor={item => item.i}
-                        /> : <Image source={require('../../images/NoRecord.png')} />}
+                        /> : <Image source={require('../../../images/NoRecord.png')} />}
 
                 </View>}
         </ScrollView>

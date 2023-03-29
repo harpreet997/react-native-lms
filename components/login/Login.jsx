@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ScrollView, View, Text, TextInput, Alert, TouchableOpacity } from "react-native";
-import { login } from "../api_methods/post_methods/postmethod";
-import styles from "../globalstyles/GlobalStyles";
+import { login } from "../../api_methods/post_methods/postmethod";
+import styles from "../../globalstyles/GlobalStyles";
 
 const Login = (props) => {
   const [logindata, setLoginData] = useState({
@@ -26,11 +26,18 @@ const Login = (props) => {
     else {
       login(logindata)
         .then((response) => {
-          Alert.alert(response.data.message)
-          setTimeout(() => {
-            props.navigation.navigate("Home", { token: response.data.token })
-          }, 2000);
-
+          if (response.data.data.role === "Admin") {
+            Alert.alert(response.data.message)
+            setTimeout(() => {
+              props.navigation.navigate("Home", { token: response.data.token })
+            }, 2000);
+          }
+          else {
+            Alert.alert(response.data.message)
+            setTimeout(() => {
+              props.navigation.navigate("UserDashboard", { token: response.data.token })
+            }, 2000)
+          }
         })
         .catch((error) => {
           Alert.alert(error.response.data.message);

@@ -2,8 +2,8 @@ import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, RefreshCont
 import React, { useState, useCallback } from 'react'
 import DatePicker from 'react-native-modern-datepicker';
 import { Picker } from '@react-native-picker/picker';
-import { applyLeave } from '../../api_methods/post_methods/postmethod';
-import styles from '../../globalstyles/GlobalStyles';
+import { applyLeave } from '../../../api_methods/post_methods/postmethod';
+import styles from '../../../globalstyles/GlobalStyles';
 
 const ApplyLeave = (props) => {
     const [leavedata, setLeavedata] = useState({

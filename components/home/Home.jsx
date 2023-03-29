@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { getEmployees } from '../api_methods/get_methods/getmethods';
+import { getEmployees } from '../../api_methods/get_methods/getmethods';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Leaves from './leaves/Leaves';
+import Leaves from '../leaves/Leaves';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Profile from './profile/Profile';
-import ApplyLeave from './leaves/ApplyLeave';
-import EmployeesList from './employees/EmployeesList';
-import ProjectList from './projects/ProjectList';
-import CustomSidebar from './sidebar/CustomSidebar';
+import Profile from '../profile/Profile';
+import ApplyLeave from '../leaves/ApplyLeave';
+import EmployeesList from '../employees/EmployeesList';
+import ProjectList from '../projects/ProjectList';
+import CustomSidebar from '../sidebar/CustomSidebar';
 // import DailyStatus from './status/DailyStatus';
 
 const Tab = createMaterialTopTabNavigator();

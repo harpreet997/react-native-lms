@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Alert, Modal, TouchableOpacity, Image, ActivityIndicator } from "react-native";
-import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
-import { deleteLeave } from "../../api_methods/post_methods/postmethod";
-import EditLeaves from "./EditLeaves";
-import styles from "../../globalstyles/GlobalStyles";
+import { Text, View, FlatList, ActivityIndicator, Image } from "react-native";
+import { getAllLeaves } from "../../../api_methods/get_methods/getmethods";
+import styles from "../../../globalstyles/GlobalStyles";
 
-const PendingLeaves = () => {
+const UserAllLeaves = () => {
     const [leavelist, setLeaveList] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [editstatus, setEditStatus] = useState(false);
     const [loading, setLoading] = useState(true);
-    const pendingleaves = leavelist.filter(item => item.status === 'Pending')
 
     useEffect(() => {
         getAllLeaves()
@@ -23,26 +18,6 @@ const PendingLeaves = () => {
                 console.log(error);
             })
     }, [leavelist]);
-
-    const handleOpenModal = (id) => {
-        setModalVisible(true)
-        setEditStatus(id)
-    }
-
-    const handleCloseModal = () => {
-        setModalVisible(false)
-    }
-
-    const DeleteLeaves = (id) => {
-        deleteLeave(id)
-            .then((response) => {
-                Alert.alert(response.data.message);
-                setLoading(true);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
 
     const Item = ({ item, index }) => (
         <View key={index} style={[styles.LeaveListItems,
@@ -80,29 +55,6 @@ const PendingLeaves = () => {
             <View style={styles.listheading}>
                 <Text style={styles.listbody}>{item.reason}</Text>
             </View>
-            <View style={styles.verticalline}>
-                <Text >|</Text>
-            </View>
-            <TouchableOpacity style={styles.edit} onPress={() => handleOpenModal(item._id)}>
-                <Text style={styles.edittext}>Edit </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.delete} onPress={() => DeleteLeaves(item._id)}>
-                <Text style={styles.deletetext}>Delete </Text>
-            </TouchableOpacity>
-
-            <Modal
-                style={{ backgroundColor: "lightblue" }}
-                animationType="slide"
-                transparent={true}
-                visible={editstatus === item._id ? modalVisible : false}
-                onRequestClose={() => {
-                    setTimeout(() => {
-                        setModalVisible(!modalVisible);
-                    }, 1000)
-
-                }}>
-                <EditLeaves leavelist={item} handleCloseModal={handleCloseModal} />
-            </Modal>
         </View>
     );
 
@@ -115,8 +67,8 @@ const PendingLeaves = () => {
                     <Text style={styles.indicatorText}>Loading ...</Text>
                 </View>
                 :
-                <View >
-                    {pendingleaves.length > 0 ?
+                <View>
+                    {leavelist.length > 0 ?
                         <View style={styles.listheadingContainer}>
                             <View style={styles.listheading}>
                                 <Text style={styles.textSize}>Name</Text>
@@ -149,26 +101,22 @@ const PendingLeaves = () => {
                                 <Text >|</Text>
                             </View>
                             <View style={styles.listheading}>
-                                <Text style={styles.textSize}>Reason</Text>
+                                <Text style={styles.textSize}>Reasons</Text>
                             </View>
-                            <View style={styles.verticalline}>
-                                <Text >|</Text>
-                            </View>
-                            <View style={styles.listheadingAction}>
-                                <Text style={styles.textSize}>Action</Text>
-                            </View>
+                            
                         </View>
                         : null}
 
-                    {pendingleaves.length > 0 ?
+                    {leavelist.length > 0 ?
                         <FlatList
-                            data={pendingleaves}
+                            data={leavelist}
                             renderItem={Item}
                             keyExtractor={item => item.i}
-                        /> : <Image source={require('../../images/NoRecord.png')} />}
-                </View>}
+                        /> : <Image source={require('../../../images/NoRecord.png')} />}
+                </View>
+            }
         </ScrollView>
     )
 }
 
-export default PendingLeaves;
+export default UserAllLeaves;

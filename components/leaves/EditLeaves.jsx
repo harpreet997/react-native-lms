@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Alert, TextInput, Button } from 'react-native';
+import { View, Text, ScrollView, Alert, TextInput, Button } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DatePicker from 'react-native-modern-datepicker';
 import { editLeave } from '../../api_methods/post_methods/postmethod';
+import styles from '../../globalstyles/GlobalStyles';
 
 const EditLeaves = ({ leavelist, handleCloseModal }) => {
 
@@ -27,7 +28,9 @@ const EditLeaves = ({ leavelist, handleCloseModal }) => {
         editLeave(id, editleavedata)
             .then((response) => {
                 Alert.alert(response.data.message);
-                handleCloseModal();
+                setTimeout(() => {
+                    handleCloseModal();
+                }, 2000)
             })
             .catch((error) => {
                 console.log(error);
@@ -48,14 +51,14 @@ const EditLeaves = ({ leavelist, handleCloseModal }) => {
                     onChangeText={(text) => handleChange(text, 'leaveType')} editable={false}
                     placeholder="Leave Type" />
                 <Text style={styles.text}>From Date: </Text>
-                <DatePicker style={styles.datepicker} mode="calendar" selected={editleavedata.fromDate}
+                <DatePicker style={{ backgroundColor: "lightgrey" }} mode="calendar" selected={editleavedata.fromDate}
                     onDateChange={(text) => handleChange(text, 'fromDate')} />
                 <Text style={styles.text}>To Date: </Text>
-                <DatePicker style={styles.datepicker} mode="calendar" selected={editleavedata.toDate}
+                <DatePicker style={{ backgroundColor: "lightgrey" }} mode="calendar" selected={editleavedata.toDate}
                     onDateChange={(text) => handleChange(text, 'toDate')} />
                 <Text style={styles.text}>Leave Status: </Text>
                 <Picker
-                    style={styles.select}
+                    style={styles.selectLeave}
                     selectedValue={editleavedata.status}
                     onValueChange={(itemValue) => handleChange(itemValue, 'status')}
                 >
@@ -73,50 +76,6 @@ const EditLeaves = ({ leavelist, handleCloseModal }) => {
     );
 }
 
-const styles = StyleSheet.create({
-    modalView: {
-        margin: 15,
-        backgroundColor: 'lightgreen',
-        borderRadius: 20,
-        padding: 35,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    text: {
-        marginBottom: 10,
-        fontSize: 17,
-        fontWeight: 'bold',
-        color: "black",
-        textAlign: 'left',
-    },
-    modalHeading: {
-        marginBottom: 10,
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: "black"
-    },
-    textbox: {
-        borderWidth: 1,
-        borderColor: 'black',
-        paddingLeft: 10,
-        marginBottom: 10,
-        marginRight: 10,
-        color: "black"
-    },
-    select: {
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: "black"
-    },
-    datepicker: {
-        backgroundColor: "lightgreen"
-    }
-})
+
 
 export default EditLeaves;
