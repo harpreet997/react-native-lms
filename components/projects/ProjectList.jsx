@@ -168,7 +168,7 @@ const ProjectList = ({ headers }) => {
                             <FlatList
                                 data={projectlist}
                                 renderItem={Item}
-                                keyExtractor={item => item.i}
+                                keyExtractor={item => item._id}
                             /> : <Image source={require('../../images/NoRecord.png')} />}
 
                     </View>}

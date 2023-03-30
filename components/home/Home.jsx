@@ -20,7 +20,7 @@ export const Home = (props) => {
     let headers = {
         authorization: token
     }
-    
+
     useEffect(() => {
         getEmployees(headers)
             .then((response) => {
@@ -34,14 +34,24 @@ export const Home = (props) => {
     return (
         <Drawer.Navigator screenOptions={{
             activeTintColor: '#e91e63',
-            itemStyle: {marginVertical: 5},
-          }} 
-          drawerContent={props => <CustomSidebar {...props}/>}>
+            itemStyle: { marginVertical: 5 },
+        }}
+            drawerContent={props => <CustomSidebar {...props} />}>
             <Drawer.Screen name="Profile" component={Profile} />
             <Drawer.Screen name="Apply Leave" component={ApplyLeave} />
-            <Drawer.Screen name="All Leaves" component={Leaves} />
-            <Drawer.Screen name="Employees" component={() => <EmployeesList headers={headers}/>} />
-            <Drawer.Screen name="Projects" component={() => <ProjectList headers={headers}/>} />
+            <Drawer.Screen name="Leaves" component={Leaves} />
+            <Drawer.Screen name="Employees">{props => (
+                <EmployeesList
+                headers={headers}
+                />
+            )}</Drawer.Screen>
+            <Drawer.Screen name="Projects">{props => (
+                <ProjectList
+                headers={headers}
+                />
+            )}</Drawer.Screen>
+            {/* <Drawer.Screen name="Employees" component={() => <EmployeesList headers={headers} />} /> */}
+            {/* <Drawer.Screen name="Projects" component={() => <ProjectList headers={headers} />} /> */}
             {/* <Drawer.Screen name="Daily Status" component={DailyStatus} /> */}
         </Drawer.Navigator>
     );

@@ -163,7 +163,7 @@ const AllLeaves = () => {
                         <FlatList
                             data={leavelist}
                             renderItem={Item}
-                            keyExtractor={item => item.i}
+                            keyExtractor={(item) => item._id}
                         /> : <Image source={require('../../images/NoRecord.png')} />}
                 </View>
             }

@@ -6,6 +6,8 @@ import Login from './components/login/Login';
 import Dashboard from './components/home/Dashboard';
 import Signup from './components/signup/Signup';
 import UserDashboard from './components/home/UserDashboard';
+import {LogBox } from 'react-native';
+LogBox.ignoreLogs(['Reanimated 2']);
 
 const Stack = createNativeStackNavigator();
 
