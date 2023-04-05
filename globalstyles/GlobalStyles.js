@@ -90,6 +90,24 @@ const styles = StyleSheet.create({
         marginLeft: "auto",
         marginRight: "auto"
     },
+    visibilityBtn: {
+        position: 'absolute',
+        right: 9,
+        height: 25,
+        width: 25,
+        padding: 0,
+        marginTop: 21,
+    },
+    inputFlex: {
+        alignSelf: 'stretch',
+        width: '100%',
+        padding: 0,
+        backgroundColor: '#ddd'
+    },
+    btnImage: {
+        width: 30,
+        height: 40
+    },
 
     /*   styles ended for login screen */
 
@@ -180,12 +198,12 @@ const styles = StyleSheet.create({
 
     /*   styles started for All Leaves, Pending Leaves, and Rejected Leaves, Project List screen */
     LeaveListItems: {
-        flexDirection: 'row', 
-        borderWidth: 1, 
-        borderRadius: 5, 
-        borderColor: 'black', 
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: 'black',
         margin: 3
-    }, 
+    },
 
     textSize: {
         fontSize: 18,
@@ -195,12 +213,12 @@ const styles = StyleSheet.create({
         color: "black"
     },
     listheadingContainer: {
-        flexDirection: 'row', 
-        borderWidth: 1, 
-        borderRadius: 5, 
-        borderColor: 'black', 
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: 'black',
         margin: 3
-    }, 
+    },
 
     listheading: {
         width: 100,
@@ -268,12 +286,12 @@ const styles = StyleSheet.create({
     /*   styles started for Employees List screen */
 
     employeesListItems: {
-        flexDirection: 'row', 
-        borderWidth: 1, 
-        borderRadius: 5, 
-        borderColor: 'black', 
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: 'black',
         margin: 3
-    }, 
+    },
 
     primaryBackground: {
         backgroundColor: "#D6EEEE"
@@ -331,7 +349,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         color: "black"
     },
-   
+
 
     /*   styles ended for Add Employee screen */
 
@@ -361,10 +379,10 @@ const styles = StyleSheet.create({
     /*   styles started for Project List screen */
 
     projectlistItems: {
-        flexDirection: 'row', 
-        borderWidth: 1, 
-        borderRadius: 5, 
-        borderColor: 'black', 
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: 'black',
         margin: 3
     },
 

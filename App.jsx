@@ -7,12 +7,14 @@ import Dashboard from './components/home/Dashboard';
 import Signup from './components/signup/Signup';
 import UserDashboard from './components/home/UserDashboard';
 import {LogBox } from 'react-native';
+import Toast from 'react-native-toast-message';
 LogBox.ignoreLogs(['Reanimated 2']);
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
+    <>
     <NavigationContainer>
       <Stack.Navigator >
         <Stack.Screen options={{ headerShown: false }} name="Dashboard" component={Dashboard} />
@@ -48,6 +50,8 @@ const App = () => {
           }} />
       </Stack.Navigator>
     </NavigationContainer>
+    <Toast />
+    </>
   );
 }
 

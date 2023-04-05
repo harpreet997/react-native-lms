@@ -6,8 +6,10 @@ import { getProjects } from '../../api_methods/get_methods/getmethods';
 import styles from '../../globalstyles/GlobalStyles';
 
 const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal }) => {
-    const [name, setName] = useState(data.name)
-    const [email, setEmail] = useState(data.email)
+    const [editemployee, setEditEmployee] = useState({
+        name: data.name,
+        email: data.email,
+    })
     const [projectlist, setProjectList] = useState([]);
     const [projectName, setProjectName] = useState(project)
     const [projectId, setProjectId] = useState(projectid)
@@ -23,18 +25,24 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
     }, [projectId]);
 
 
-    
+    const handleChange = (text, input) => {
+        setEditEmployee({
+            ...editemployee,
+            [input]: text
+        });
+    };
+
     const UpdateEmployee = () => {
         if (projectId === "Bench") {
             const data = {
-                name: name,
-                email: email,
+                name: editemployee.name,
+                email: editemployee.name,
                 assignedProject: null
             }
             editEmployee(id, data, headers)
                 .then((response) => {
                     Alert.alert(response.data.message)
-                    handleCloseModal();
+                    // handleCloseModal();
                 })
                 .catch((error) => {
                     Alert.alert(error.response.data.message);
@@ -42,8 +50,8 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
         }
         else if (projectName === "Bench") {
             const data = {
-                name: name,
-                email: email,
+                name: editemployee.name,
+                email: editemployee.name,
                 assignedProject: null
             }
             editEmployee(id, data, headers)
@@ -57,8 +65,8 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
         }
         else {
             const data = {
-                name: name,
-                email: email,
+                name: editemployee.name,
+                email: editemployee.email,
                 assignedProject: projectId
             }
             editEmployee(id, data, headers)
@@ -78,14 +86,17 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
             <View style={styles.modalView}>
                 <Text style={styles.modalHeading}>Edit Employee</Text>
                 <Text style={styles.editEmployeeText}>Employee Name: </Text>
-                <TextInput style={styles.editEmployeeTextbox} value={name} onChangeText={(text) => setName(text)}
+                <TextInput style={styles.editEmployeeTextbox} value={editemployee.name} onChangeText={(text) => handleChange(text, 'name')}
                     placeholder="Employee Name" />
                 <Text style={styles.editEmployeeText}>Email Address: </Text>
-                <TextInput style={styles.editEmployeeTextbox} value={email} onChangeText={(text) => setEmail(text)}
+                <TextInput style={styles.editEmployeeTextbox} value={editemployee.email} onChangeText={(text) => handleChange(text, 'email')}
                     keyboardType="email-address" placeholder="Email Address" />
 
                 <Text style={styles.editEmployeeText}>Project Assigned: </Text>
-                <Picker style={styles.selectProject} onValueChange={(itemValue) => setAssignedProject(itemValue)}>
+                <Picker style={styles.selectProject} selectedValue={projectId} onValueChange={(itemValue) => {
+                    setProjectId(itemValue);
+                    setProjectName('')
+                    }}>
                     <Picker.Item label="Bench" value="Bench" />
                     {projectlist.map((item, index) => {
                         return (

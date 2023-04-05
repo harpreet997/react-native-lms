@@ -36,7 +36,7 @@ const EditProject = ({data, id, headers, handleCloseEditProjectModal}) => {
     return (
         <ScrollView >
             <View style={styles.modalView}>
-                <Text style={styles.modalHeading}>Add Project</Text>
+                <Text style={styles.modalHeading}>Edit Project</Text>
                 <Text style={styles.editprojecttext}>Project Name: </Text>
                 <TextInput style={styles.editprojecttextbox} placeholder='Enter Project Name' placeholderTextColor={"black"}
                     value={editproject.name} onChangeText={(text) => handleChange(text, 'name')} />
