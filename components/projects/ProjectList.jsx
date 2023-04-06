@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Button, Alert, Modal, TouchableOpacity, ActivityIndicator, Image } from "react-native";
+import { Text, View, FlatList, Button, Alert, Modal, TouchableOpacity, ActivityIndicator, Image, ImageBackground } from "react-native";
 import { getProjects } from '../../api_methods/get_methods/getmethods'
 import { deleteProject } from "../../api_methods/post_methods/postmethod";
 import AddProject from "./AddProject";
@@ -125,53 +125,55 @@ const ProjectList = ({ headers }) => {
                 }}>
                 <AddProject headers={headers} handleCloseAddProjectModal={handleCloseAddProjectModal} />
             </Modal>
-            <ScrollView horizontal={true} style={{ backgroundColor: "lightgreen" }}>
-                {loading ?
-                    <View style={styles.indicatorWrapper}>
-                        <ActivityIndicator style={styles.indicator} size="large" />
-                        <Text style={styles.indicatorText}>Loading ...</Text>
-                    </View>
-                    :
-                    <View>
-                        {projectlist.length > 0 ?
-                            <View style={styles.listheadingContainer}>
-                                <View style={styles.projectlistheading}>
-                                    <Text style={styles.textSize}>Project Name</Text>
+            <ScrollView horizontal={true} >
+                <ImageBackground source={require('../../images/logo.jpg')} >
+                    {loading ?
+                        <View style={styles.indicatorWrapper}>
+                            <ActivityIndicator style={styles.indicator} size="large" />
+                            <Text style={styles.indicatorText}>Loading ...</Text>
+                        </View>
+                        :
+                        <View>
+                            {projectlist.length > 0 ?
+                                <View style={styles.listheadingContainer}>
+                                    <View style={styles.projectlistheading}>
+                                        <Text style={styles.textSize}>Project Name</Text>
+                                    </View>
+                                    <View style={styles.verticalline}>
+                                        <Text >|</Text>
+                                    </View>
+                                    <View style={styles.projectlistheading}>
+                                        <Text style={styles.textSize}>Client Name</Text>
+                                    </View>
+                                    <View style={styles.verticalline}>
+                                        <Text >|</Text>
+                                    </View>
+                                    <View style={styles.projectlistheading}>
+                                        <Text style={styles.textSize}>Client's Contact No.</Text>
+                                    </View>
+                                    <View style={styles.verticalline}>
+                                        <Text >|</Text>
+                                    </View>
+                                    <View style={styles.projectlistheading}>
+                                        <Text style={styles.textSize}>Client's Email Address</Text>
+                                    </View>
+                                    <View style={styles.verticalline}>
+                                        <Text >|</Text>
+                                    </View>
+                                    <View style={styles.projectlistheadingAction}>
+                                        <Text style={styles.textSize}>Action</Text>
+                                    </View>
                                 </View>
-                                <View style={styles.verticalline}>
-                                    <Text >|</Text>
-                                </View>
-                                <View style={styles.projectlistheading}>
-                                    <Text style={styles.textSize}>Client Name</Text>
-                                </View>
-                                <View style={styles.verticalline}>
-                                    <Text >|</Text>
-                                </View>
-                                <View style={styles.projectlistheading}>
-                                    <Text style={styles.textSize}>Client's Contact No.</Text>
-                                </View>
-                                <View style={styles.verticalline}>
-                                    <Text >|</Text>
-                                </View>
-                                <View style={styles.projectlistheading}>
-                                    <Text style={styles.textSize}>Client's Email Address</Text>
-                                </View>
-                                <View style={styles.verticalline}>
-                                    <Text >|</Text>
-                                </View>
-                                <View style={styles.projectlistheadingAction}>
-                                    <Text style={styles.textSize}>Action</Text>
-                                </View>
-                            </View>
-                            : null}
-                        {projectlist.length > 0 ?
-                            <FlatList
-                                data={projectlist}
-                                renderItem={Item}
-                                keyExtractor={item => item._id}
-                            /> : <Image source={require('../../images/NoRecord.png')} />}
+                                : null}
+                            {projectlist.length > 0 ?
+                                <FlatList
+                                    data={projectlist}
+                                    renderItem={Item}
+                                    keyExtractor={item => item._id}
+                                /> : <Image source={require('../../images/NoRecord.png')} />}
 
-                    </View>}
+                        </View>}
+                </ImageBackground>
             </ScrollView>
         </>
     )

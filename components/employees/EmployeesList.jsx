@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Alert, Modal, TouchableOpacity, Button, ActivityIndicator } from "react-native";
+import { Text, View, FlatList, Alert, Modal, TouchableOpacity, Button, ActivityIndicator, ImageBackground } from "react-native";
 import { getEmployees, getEmployeeDetail } from '../../api_methods/get_methods/getmethods'
 import { deleteEmployee } from "../../api_methods/post_methods/postmethod";
 import EditEmployee from "./EditEmployee";
@@ -137,7 +137,8 @@ const EmployeesList = ({ headers }) => {
                 <AddEmployee headers={headers} handleCloseAddModal={handleCloseAddModal} />
             </Modal>
 
-            <ScrollView horizontal={true} style={{ backgroundColor: "lightgreen" }}>
+            <ScrollView horizontal={true}>
+            <ImageBackground source={require('../../images/logo.jpg')} >
                 {loading ?
                     <View style={styles.indicatorWrapper}>
                         <ActivityIndicator style={styles.indicator} size="large" />
@@ -173,6 +174,7 @@ const EmployeesList = ({ headers }) => {
                             /> : <Image source={require('../../images/NoRecord.png')} />}
 
                     </View>}
+                    </ImageBackground>
             </ScrollView>
         </>
     )

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, RefreshControl } from 'react-native'
+import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, RefreshControl, ImageBackground } from 'react-native'
 import React, { useState, useCallback } from 'react'
 import DatePicker from 'react-native-modern-datepicker';
 import { Picker } from '@react-native-picker/picker';
@@ -46,7 +46,8 @@ const ApplyLeave = (props) => {
     }, []);
 
     return (
-        <ScrollView style={styles.applyLeaveContainer} refreshControl={
+        <ImageBackground style={styles.applyLeaveContainer} source={require('../../images/logo.jpg')} >
+        <ScrollView refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
             <View style={styles.applyLeaveMain}>
@@ -64,11 +65,15 @@ const ApplyLeave = (props) => {
                     <Picker.Item label="Casual Leave" value="CL" />
                     <Picker.Item label="Half day" value="Half Day" />
                 </Picker>
-
+                
                 <Text style={styles.text}>From Date: </Text>
+                <ImageBackground source={require('../../images/logo.jpg')} >
                 <DatePicker style={styles.datapicker} mode="calendar" onDateChange={(text) => handleChange(text, 'fromDate')} />
+                </ImageBackground>
                 <Text style={styles.text}>To Date: </Text>
+                <ImageBackground source={require('../../images/logo.jpg')} >
                 <DatePicker style={styles.datapicker} mode="calendar" onDateChange={(text) => handleChange(text, 'toDate')} />
+                </ImageBackground>
                 <Text style={styles.text}>Reason: </Text>
                 <TextInput multiline={true}
                     numberOfLines={2} style={styles.textbox} onChangeText={(text) => handleChange(text, 'reason')} placeholder="Enter Reason"
@@ -78,6 +83,7 @@ const ApplyLeave = (props) => {
                 </TouchableOpacity>
             </View>
         </ScrollView>
+        </ImageBackground>
     )
 }
 

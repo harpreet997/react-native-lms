@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
 
     homeContainer: {
         flex: 1,
-        backgroundColor: "coral",
+        // backgroundColor: "coral",
+        height: "100%"
     },
 
     main: {
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     datapicker: {
-        backgroundColor: "lightgreen",
+        backgroundColor: "rgba(255, 99, 71, 0.4)",
     },
     selectLeave: {
         color: "black"

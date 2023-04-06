@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Alert, Modal, TouchableOpacity, ActivityIndicator, Image } from "react-native";
+import { Text, View, FlatList, Alert, Modal, TouchableOpacity, ActivityIndicator, Image, ImageBackground } from "react-native";
 import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
 import { deleteLeave } from "../../api_methods/post_methods/postmethod";
 import EditLeaves from "./EditLeaves";
@@ -107,7 +107,9 @@ const AllLeaves = () => {
 
 
     return (
-        <ScrollView horizontal={true} style={{ backgroundColor: "lightgreen" }}>
+        
+        <ScrollView horizontal={true} >
+            <ImageBackground source={require('../../images/logo.jpg')} >
             {loading ?
                 <View style={styles.indicatorWrapper}>
                     <ActivityIndicator style={styles.indicator} size="large" />
@@ -167,7 +169,9 @@ const AllLeaves = () => {
                         /> : <Image source={require('../../images/NoRecord.png')} />}
                 </View>
             }
+            </ImageBackground>
         </ScrollView>
+        
     )
 }
 

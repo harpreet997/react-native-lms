@@ -19,7 +19,7 @@ export const Home = (props) => {
     return (
         <Drawer.Navigator screenOptions={{
             headerStyle: {
-                backgroundColor: 'coral'
+                backgroundColor: '#BD9DBF'
             }
         }}
             drawerContent={props => <CustomSidebar {...props} />}>

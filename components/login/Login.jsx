@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, View, Text, TextInput, Alert, TouchableOpacity, ImageBackground, Image } from "react-native";
+import { ScrollView, View, Text, TextInput, Alert, TouchableOpacity, ImageBackground} from "react-native";
 import { login } from "../../api_methods/post_methods/postmethod";
 import styles from "../../globalstyles/GlobalStyles";
 import Toast from 'react-native-toast-message';
@@ -9,7 +9,6 @@ const Login = (props) => {
     email: "",
     password: ""
   })
-  const [show, setShow] = useState(false);
 
   const handleChange = (text, input) => {
     setLoginData({
@@ -67,40 +66,22 @@ const Login = (props) => {
     }
   }
 
-
-  const handleShow = () => {
-    setShow(!show)
-  }
   return (
-    <ScrollView style={styles.container}>
-      {/* <ImageBackground source={require('../../images/loginbackground.jpg')} style={{ height: 400 }}> */}
+    <ImageBackground style={styles.container} source={require('../../images/logo.jpg')} >
+    <ScrollView>
         <View style={styles.loginMain}>
           <Text style={styles.text}>Email Address: </Text>
           <TextInput style={styles.textbox} placeholder='Enter Email Address' keyboardType="email-address" placeholderTextColor={"black"}
             onChangeText={(text) => handleChange(text, 'email')} />
           <Text style={styles.text}>Password: </Text>
           <TextInput style={styles.textbox} placeholder='Enter Password' placeholderTextColor={"black"}
-            secureTextEntry={!show} onChangeText={(text) => handleChange(text, 'password')} />
-          {/* <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.visibilityBtn}
-            onPress={handleShow}>
-            <Image
-              source={
-                show
-                  ? require('../../images/show.png')
-                  : require('../../images/hide.png')
-              }
-              style={styles.btnImage}
-            />
-          </TouchableOpacity> */}
+            secureTextEntry={true} onChangeText={(text) => handleChange(text, 'password')} />
           <TouchableOpacity style={styles.login} onPress={handlePress}>
             <Text style={styles.logintext}>Login</Text>
           </TouchableOpacity>
         </View>
-      {/* </ImageBackground> */}
     </ScrollView>
-
+    </ImageBackground>
   );
 }
 

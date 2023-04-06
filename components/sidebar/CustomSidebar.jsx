@@ -13,7 +13,7 @@ import {
 
 const CustomSidebar = (props) => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: "#BD9DBF"}}>
       <Image
        source={require('../../images/headerlogo.png')}
         style={styles.sideMenuProfileIcon}
@@ -34,16 +34,7 @@ const styles = StyleSheet.create({
     borderRadius: 100 / 2,
     alignSelf: 'center',
   },
-  iconStyle: {
-    width: 15,
-    height: 15,
-    marginHorizontal: 5,
-  },
-  customItem: {
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+
 });
 
 export default CustomSidebar;

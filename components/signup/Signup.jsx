@@ -1,9 +1,10 @@
-import { ScrollView, View, Text, TextInput, TouchableOpacity } from "react-native";
+import { ScrollView, View, Text, TextInput, TouchableOpacity, ImageBackground} from "react-native";
 import styles from "../../globalstyles/GlobalStyles";
 
 const Signup = () => {
   return (
-    <ScrollView style={styles.container}>
+    <ImageBackground style={styles.container} source={require('../../images/logo.jpg')} >
+    <ScrollView>
       <View style={styles.signupMain}>
         <Text style={styles.text}>First Name: </Text>
         <TextInput style={styles.textbox} placeholder='Enter First Name' placeholderTextColor={"black"}
@@ -28,6 +29,7 @@ const Signup = () => {
         </TouchableOpacity>
       </View>
     </ScrollView>
+    </ImageBackground>
   );
 }
 

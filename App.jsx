@@ -22,7 +22,7 @@ const App = () => {
           options={{
             title: 'SignUp Form',
             headerStyle: {
-              backgroundColor: 'coral'
+              backgroundColor: '#BD9DBF'
             },
             headerTitleStyle: {
               fontWeight: 'bold',
@@ -33,7 +33,7 @@ const App = () => {
           options={{
             title: 'Login Form',
             headerStyle: {
-              backgroundColor: 'coral'
+              backgroundColor: '#BD9DBF'
             },
             headerTitleStyle: {
               fontWeight: 'bold',
