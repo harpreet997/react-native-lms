@@ -109,7 +109,7 @@ const RejectedLeaves = () => {
 
     return (
         <ScrollView horizontal={true}>
-            <ImageBackground source={require('../../images/logo.jpg')} >
+            <ImageBackground style={{width: "100%"}} source={require('../../images/logo.jpg')} >
                 {loading ?
                     <View style={styles.indicatorWrapper}>
                         <ActivityIndicator style={styles.indicator} size="large" />

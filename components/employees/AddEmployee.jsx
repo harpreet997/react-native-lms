@@ -4,6 +4,7 @@ import { getProjects } from '../../api_methods/get_methods/getmethods';
 import { addEmployee } from '../../api_methods/post_methods/postmethod';
 import { Picker } from '@react-native-picker/picker';
 import styles from '../../globalstyles/GlobalStyles';
+import Toast from 'react-native-toast-message';
 
 export default function AddEmployee({ headers, handleCloseAddModal }) {
     const [employeeName, setEmployeeName] = useState('')
@@ -41,11 +42,21 @@ export default function AddEmployee({ headers, handleCloseAddModal }) {
         else {
             addEmployee(payload, headers)
                 .then((response) => {
-                    Alert.alert(response.data.message);
+                    Toast.show({
+                        type: "success",
+                        text1: response.data.message,
+                        visibilityTime: 2000,
+                        position: "top",
+                      })
                     handleCloseAddModal();
                 })
                 .catch((error) => {
-                    Alert.alert(error.response.data.message);
+                    Toast.show({
+                        type: "error",
+                        text1: error.response.data.message,
+                        visibilityTime: 2000,
+                        position: "top",
+                      })
                 })
         }
     }

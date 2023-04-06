@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, Alert, TextInput, Button } from 'react-native';
+import { View, Text, ScrollView, TextInput, Button } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DatePicker from 'react-native-modern-datepicker';
 import { editLeave } from '../../api_methods/post_methods/postmethod';
 import styles from '../../globalstyles/GlobalStyles';
+import Toast from 'react-native-toast-message';
 
 const EditLeaves = ({ leavelist, handleCloseModal }) => {
 
@@ -27,13 +28,23 @@ const EditLeaves = ({ leavelist, handleCloseModal }) => {
     const UpdateStatus = (id) => {
         editLeave(id, editleavedata)
             .then((response) => {
-                Alert.alert(response.data.message);
+                Toast.show({
+                    type: "success",
+                    text1: response.data.message,
+                    visibilityTime: 2000,
+                    position: "top",
+                  })
                 setTimeout(() => {
                     handleCloseModal();
                 }, 2000)
             })
             .catch((error) => {
-                console.log(error);
+                Toast.show({
+                    type: "error",
+                    text1: error.response.data.message,
+                    visibilityTime: 2000,
+                    position: "top",
+                  })
             })
     }
 

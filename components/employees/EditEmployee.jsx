@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { editEmployee } from '../../api_methods/post_methods/postmethod';
 import { getProjects } from '../../api_methods/get_methods/getmethods';
 import styles from '../../globalstyles/GlobalStyles';
+import Toast from 'react-native-toast-message';
 
 const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal }) => {
     const [editemployee, setEditEmployee] = useState({
@@ -41,11 +42,21 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
             }
             editEmployee(id, data, headers)
                 .then((response) => {
-                    Alert.alert(response.data.message)
-                    // handleCloseModal();
+                    Toast.show({
+                        type: "success",
+                        text1: response.data.message,
+                        visibilityTime: 2000,
+                        position: "top",
+                      });
+                    handleCloseModal();
                 })
                 .catch((error) => {
-                    Alert.alert(error.response.data.message);
+                    Toast.show({
+                        type: "error",
+                        text1: error.response.data.message,
+                        visibilityTime: 2000,
+                        position: "top",
+                      })
                 })
         }
         else if (projectName === "Bench") {

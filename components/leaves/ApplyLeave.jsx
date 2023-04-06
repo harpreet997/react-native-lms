@@ -1,9 +1,10 @@
-import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, RefreshControl, ImageBackground } from 'react-native'
+import { View, Text, ScrollView, TextInput, TouchableOpacity, RefreshControl, ImageBackground } from 'react-native'
 import React, { useState, useCallback } from 'react'
 import DatePicker from 'react-native-modern-datepicker';
 import { Picker } from '@react-native-picker/picker';
 import { applyLeave } from '../../api_methods/post_methods/postmethod';
 import styles from '../../globalstyles/GlobalStyles';
+import Toast from 'react-native-toast-message';
 
 const ApplyLeave = (props) => {
     const [leavedata, setLeavedata] = useState({
@@ -26,7 +27,12 @@ const ApplyLeave = (props) => {
     const handleApplyLeave = () => {
         applyLeave(leavedata)
             .then((response) => {
-                Alert.alert(response.data.message);
+                Toast.show({
+                    type: "success",
+                    text1: response.data.message,
+                    visibilityTime: 2000,
+                    position: "top",
+                  })
                 setTimeout(() => {
                     setLeavedata({})
                     props.navigation.navigate("All Leaves")
@@ -34,7 +40,12 @@ const ApplyLeave = (props) => {
             }
             )
             .catch((error) => {
-                Alert.alert(error.response.data.message);
+                Toast.show({
+                    type: "error",
+                    text1: error.response.data.message,
+                    visibilityTime: 1000,
+                    position: "top",
+                  })
             })
     }
 

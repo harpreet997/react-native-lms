@@ -6,6 +6,7 @@ import { deleteEmployee } from "../../api_methods/post_methods/postmethod";
 import EditEmployee from "./EditEmployee";
 import AddEmployee from "./AddEmployee";
 import styles from "../../globalstyles/GlobalStyles";
+import Toast from 'react-native-toast-message';
 
 const EmployeesList = ({ headers }) => {
     const [employeelist, setEmployeeList] = useState([]);
@@ -63,10 +64,20 @@ const EmployeesList = ({ headers }) => {
     const DeleteEmployee = (id) => {
         deleteEmployee(id, headers)
             .then((response) => {
-                Alert.alert(response.data.message);
+                Toast.show({
+                    type: "success",
+                    text1: response.data.message,
+                    visibilityTime: 2000,
+                    position: "top",
+                  })
             })
             .catch((error) => {
-                console.log(error);
+                Toast.show({
+                    type: "error",
+                    text1: error.response.data.message,
+                    visibilityTime: 2000,
+                    position: "top",
+                  })
             })
     }
 

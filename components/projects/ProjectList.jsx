@@ -6,6 +6,7 @@ import { deleteProject } from "../../api_methods/post_methods/postmethod";
 import AddProject from "./AddProject";
 import EditProject from "./EditProject";
 import styles from "../../globalstyles/GlobalStyles";
+import Toast from 'react-native-toast-message';
 
 const ProjectList = ({ headers }) => {
     const [projectlist, setProjectList] = useState([]);
@@ -42,10 +43,20 @@ const ProjectList = ({ headers }) => {
     const DeleteProject = (id) => {
         deleteProject(id, headers)
             .then((response) => {
-                Alert.alert(response.data.message);
+                Toast.show({
+                    type: "success",
+                    text1: response.data.message,
+                    visibilityTime: 1000,
+                    position: "top",
+                  })
             })
             .catch((error) => {
-                console.log(error);
+                Toast.show({
+                    type: "error",
+                    text1: error.response.data.message,
+                    visibilityTime: 1000,
+                    position: "top",
+                  })
             })
     }
 

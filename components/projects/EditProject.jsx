@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { editProject } from '../../api_methods/post_methods/postmethod';
 import DatePicker from 'react-native-modern-datepicker';
 import styles from '../../globalstyles/GlobalStyles';
+import Toast from 'react-native-toast-message';
 
 const EditProject = ({data, id, headers, handleCloseEditProjectModal}) => {
     const [editproject, setEditProject] = useState({
@@ -24,11 +25,21 @@ const EditProject = ({data, id, headers, handleCloseEditProjectModal}) => {
     const UpdateProject = () => {
         editProject(id, editproject, headers)
         .then((response) => {
-            Alert.alert(response.data.message)
+            Toast.show({
+                type: "success",
+                text1: response.data.message,
+                visibilityTime: 2000,
+                position: "top",
+              })
             handleCloseEditProjectModal();
         })
         .catch((error) => {
-            Alert.alert(error.response.data.message);
+            Toast.show({
+                type: "error",
+                text1: error.response.data.message,
+                visibilityTime: 2000,
+                position: "top",
+              })
         })
     }
 
