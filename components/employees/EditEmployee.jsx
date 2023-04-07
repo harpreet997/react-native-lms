@@ -46,7 +46,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                         type: "success",
                         text1: response.data.message,
                         visibilityTime: 2000,
-                        position: "top",
+                        position: "bottom",
                       });
                     handleCloseModal();
                 })
@@ -55,7 +55,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                         type: "error",
                         text1: error.response.data.message,
                         visibilityTime: 2000,
-                        position: "top",
+                        position: "bottom",
                       })
                 })
         }
@@ -67,11 +67,21 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
             }
             editEmployee(id, data, headers)
                 .then((response) => {
-                    Alert.alert(response.data.message)
+                    Toast.show({
+                        type: "success",
+                        text1: response.data.message,
+                        visibilityTime: 2000,
+                        position: "bottom",
+                      });
                     handleCloseModal();
                 })
                 .catch((error) => {
-                    Alert.alert(error.response.data.message);
+                    Toast.show({
+                        type: "error",
+                        text1: error.response.data.message,
+                        visibilityTime: 2000,
+                        position: "bottom",
+                      })
                 })
         }
         else {
@@ -82,11 +92,21 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
             }
             editEmployee(id, data, headers)
                 .then((response) => {
-                    Alert.alert(response.data.message)
+                    Toast.show({
+                        type: "success",
+                        text1: response.data.message,
+                        visibilityTime: 2000,
+                        position: "bottom",
+                      });
                     handleCloseModal();
                 })
                 .catch((error) => {
-                    Alert.alert(error.response.data.message);
+                    Toast.show({
+                        type: "error",
+                        text1: error.response.data.message,
+                        visibilityTime: 2000,
+                        position: "bottom",
+                      })
                 })
         }
     }

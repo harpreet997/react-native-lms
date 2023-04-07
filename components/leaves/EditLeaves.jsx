@@ -32,7 +32,7 @@ const EditLeaves = ({ leavelist, handleCloseModal }) => {
                     type: "success",
                     text1: response.data.message,
                     visibilityTime: 2000,
-                    position: "top",
+                    position: "bottom",
                   })
                 setTimeout(() => {
                     handleCloseModal();
@@ -43,7 +43,7 @@ const EditLeaves = ({ leavelist, handleCloseModal }) => {
                     type: "error",
                     text1: error.response.data.message,
                     visibilityTime: 2000,
-                    position: "top",
+                    position: "bottom",
                   })
             })
     }

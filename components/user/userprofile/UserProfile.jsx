@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity, Text } from 'react-native'
+import { View, Image, TouchableOpacity, Text, ImageBackground } from 'react-native'
 import styles from '../../../globalstyles/GlobalStyles'
 
 const UserProfile = (props) => {
@@ -6,12 +6,14 @@ const UserProfile = (props) => {
     props.navigation.navigate("Dashboard")
   }
   return (
-    <View style={styles.profileContainer}>
+    <ImageBackground style={styles.profileContainer} source={require('../../../images/logo.jpg')} >
+    <View>
       <Image style={styles.profileImage} source={require('../../../images/userprofile.png')} />
       <TouchableOpacity style={styles.logout} onPress={handleLogout}>
           <Text style={styles.logouttext}>Logout</Text>
         </TouchableOpacity>
     </View>
+    </ImageBackground>
   )
 }
 

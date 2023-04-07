@@ -5,6 +5,7 @@ import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
 import { deleteLeave } from "../../api_methods/post_methods/postmethod";
 import EditLeaves from "./EditLeaves";
 import styles from "../../globalstyles/GlobalStyles";
+import Toast from 'react-native-toast-message';
 
 const PendingLeaves = () => {
     const [leavelist, setLeaveList] = useState([]);
@@ -36,11 +37,21 @@ const PendingLeaves = () => {
     const DeleteLeaves = (id) => {
         deleteLeave(id)
             .then((response) => {
-                Alert.alert(response.data.message);
+                Toast.show({
+                    type: "success",
+                    text1: response.data.message,
+                    visibilityTime: 2000,
+                    position: "top",
+                  })
                 setLoading(true);
             })
             .catch((error) => {
-                console.log(error);
+                Toast.show({
+                    type: "error",
+                    text1: error.response.data.message,
+                    visibilityTime: 2000,
+                    position: "top",
+                  })
             })
     }
 

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Alert, Modal, TouchableOpacity, ActivityIndicator, Image, ImageBackground } from "react-native";
+import { Text, View, FlatList, Modal, TouchableOpacity, ActivityIndicator, Image, ImageBackground } from "react-native";
 import { getAllLeaves } from "../../api_methods/get_methods/getmethods";
 import { deleteLeave } from "../../api_methods/post_methods/postmethod";
 import EditLeaves from "./EditLeaves";
 import styles from "../../globalstyles/GlobalStyles";
+import Toast from 'react-native-toast-message';
 
 const AllLeaves = () => {
     const [leavelist, setLeaveList] = useState([]);
@@ -35,11 +36,21 @@ const AllLeaves = () => {
     const DeleteLeaves = (id) => {
         deleteLeave(id)
             .then((response) => {
-                Alert.alert(response.data.message);
+                Toast.show({
+                    type: "success",
+                    text1: response.data.message,
+                    visibilityTime: 2000,
+                    position: "top",
+                  })
                 setLoading(true);
             })
             .catch((error) => {
-                console.log(error);
+                Toast.show({
+                    type: "error",
+                    text1: error.response.data.message,
+                    visibilityTime: 2000,
+                    position: "top",
+                  })
             })
     }
 

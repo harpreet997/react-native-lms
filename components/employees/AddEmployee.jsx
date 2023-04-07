@@ -32,11 +32,21 @@ export default function AddEmployee({ headers, handleCloseAddModal }) {
             assignedProject = null;
             addEmployee(payload, headers)
                 .then((response) => {
-                    Alert.alert(response.data.message)
+                    Toast.show({
+                        type: "success",
+                        text1: response.data.message,
+                        visibilityTime: 2000,
+                        position: "bottom",
+                      })
                     handleCloseAddModal();
                 })
                 .catch((error) => {
-                    Alert.alert(error.response.data.message);
+                    Toast.show({
+                        type: "error",
+                        text1: error.response.data.message,
+                        visibilityTime: 2000,
+                        position: "bottom",
+                      })
                 })
         }
         else {
@@ -46,7 +56,7 @@ export default function AddEmployee({ headers, handleCloseAddModal }) {
                         type: "success",
                         text1: response.data.message,
                         visibilityTime: 2000,
-                        position: "top",
+                        position: "bottom",
                       })
                     handleCloseAddModal();
                 })
@@ -55,7 +65,7 @@ export default function AddEmployee({ headers, handleCloseAddModal }) {
                         type: "error",
                         text1: error.response.data.message,
                         visibilityTime: 2000,
-                        position: "top",
+                        position: "bottom",
                       })
                 })
         }
