@@ -25,6 +25,52 @@ const ApplyLeave = (props) => {
     };
 
     const handleApplyLeave = () => {
+        if(leavedata.employeeName === '')
+        {
+            Toast.show({
+                type: "error",
+                text1: "Please Enter Employee Name",
+                visibilityTime: 1000,
+                position: "top",
+              })
+        }
+        else if(leavedata.leaveType === '')
+        {
+            Toast.show({
+                type: "error",
+                text1: "Please Select Leave Type",
+                visibilityTime: 1000,
+                position: "top",
+              })
+        }
+        else if(leavedata.fromDate === '')
+        {
+            Toast.show({
+                type: "error",
+                text1: "Please Select From Date",
+                visibilityTime: 1000,
+                position: "top",
+              })
+        }
+        else if(leavedata.toDate === '')
+        {
+            Toast.show({
+                type: "error",
+                text1: "Please Select To Date",
+                visibilityTime: 1000,
+                position: "top",
+              })
+        }
+        else if(leavedata.reason === '')
+        {
+            Toast.show({
+                type: "error",
+                text1: "Please Enter Reason",
+                visibilityTime: 1000,
+                position: "top",
+              })
+        }
+        else{
         applyLeave(leavedata)
             .then((response) => {
                 Toast.show({
@@ -47,6 +93,7 @@ const ApplyLeave = (props) => {
                     position: "top",
                   })
             })
+        }
     }
 
     const onRefresh = useCallback(() => {

@@ -119,15 +119,15 @@ const PendingLeaves = () => {
 
 
     return (
-        <ScrollView horizontal={true}>
-            <ImageBackground style={{width: "100%"}} source={require('../../images/logo.jpg')} >
+        <ScrollView horizontal={pendingleaves.length > 0 ? true: false}>
+            <ImageBackground source={require('../../images/logo.jpg')} >
                 {loading ?
                     <View style={styles.indicatorWrapper}>
                         <ActivityIndicator style={styles.indicator} size="large" />
                         <Text style={styles.indicatorText}>Loading ...</Text>
                     </View>
                     :
-                    <View >
+                    <View>
                         {pendingleaves.length > 0 ?
                             <View style={styles.listheadingContainer}>
                                 <View style={styles.listheading}>

@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
     profileContainer: {
         flex: 1,
         alignItems: "center",
-        backgroundColor: "lightgreen"
     },
     profileImage: {
         marginVertical: 10,

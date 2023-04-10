@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Alert, Modal, TouchableOpacity, Button, ActivityIndicator, ImageBackground } from "react-native";
+import { Text, View, FlatList, Modal, TouchableOpacity, Button, ActivityIndicator, ImageBackground } from "react-native";
 import { getEmployees, getEmployeeDetail } from '../../api_methods/get_methods/getmethods'
 import { deleteEmployee } from "../../api_methods/post_methods/postmethod";
 import EditEmployee from "./EditEmployee";
@@ -179,6 +179,7 @@ const EmployeesList = ({ headers }) => {
 
                         {employeelist.length > 0 ?
                             <FlatList
+                            style={{marginBottom: 30}}
                                 data={employeelist}
                                 renderItem={Item}
                                 keyExtractor={item => item._id}

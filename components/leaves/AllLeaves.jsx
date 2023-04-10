@@ -127,7 +127,7 @@ const AllLeaves = () => {
                     <Text style={styles.indicatorText}>Loading ...</Text>
                 </View>
                 :
-                <View>
+                <View >
                     {leavelist.length > 0 ?
                         <View style={styles.listheadingContainer}>
                             <View style={styles.listheading}>
@@ -174,6 +174,7 @@ const AllLeaves = () => {
 
                     {leavelist.length > 0 ?
                         <FlatList
+                        
                             data={leavelist}
                             renderItem={Item}
                             keyExtractor={(item) => item._id}

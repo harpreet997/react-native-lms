@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, View, Text, TextInput, Alert, TouchableOpacity, ImageBackground} from "react-native";
+import { ScrollView, View, Text, TextInput, TouchableOpacity, ImageBackground} from "react-native";
 import { login } from "../../api_methods/post_methods/postmethod";
 import styles from "../../globalstyles/GlobalStyles";
 import Toast from 'react-native-toast-message';
@@ -49,10 +49,15 @@ const Login = (props) => {
             }, 1000);
           }
           else {
-            Alert.alert(response.data.message)
+            Toast.show({
+              type: "success",
+              text1: response.data.message,
+              visibilityTime: 1000,
+              position: "top",
+            })
             setTimeout(() => {
               props.navigation.navigate("UserDashboard", { token: response.data.token })
-            }, 2000)
+            }, 1000)
           }
         })
         .catch((error) => {
