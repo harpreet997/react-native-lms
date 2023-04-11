@@ -83,6 +83,7 @@ const EditLeaves = ({ leavelist, handleCloseModal }) => {
                     placeholderTextColor={"black"} />
                 <Button title='Update' onPress={() => UpdateStatus(editleavedata._id)} />
             </View>
+            <Toast />
         </ScrollView>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, ActivityIndicator, Image } from "react-native";
+import { Text, View, FlatList, ActivityIndicator, Image, ImageBackground } from "react-native";
 import { getAllLeaves } from "../../../api_methods/get_methods/getmethods";
 import styles from "../../../globalstyles/GlobalStyles";
 
@@ -60,7 +60,8 @@ const UserAllLeaves = () => {
 
 
     return (
-        <ScrollView horizontal={true} style={{ backgroundColor: "lightgreen" }}>
+        <ScrollView horizontal={true} >
+            <ImageBackground style={{width: "100%"}} source={require('../../../images/logo.jpg')} >
             {loading ?
                 <View style={styles.indicatorWrapper}>
                     <ActivityIndicator style={styles.indicator} size="large" />
@@ -111,10 +112,11 @@ const UserAllLeaves = () => {
                         <FlatList
                             data={leavelist}
                             renderItem={Item}
-                            keyExtractor={item => item.i}
+                            keyExtractor={(item) => item._id}
                         /> : <Image source={require('../../../images/NoRecord.png')} />}
                 </View>
             }
+            </ImageBackground>
         </ScrollView>
     )
 }

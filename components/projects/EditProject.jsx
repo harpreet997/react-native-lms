@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView, Alert, Button } from 'react-native'
+import { View, Text, TextInput, ScrollView, Button } from 'react-native'
 import React, { useState } from 'react'
 import { editProject } from '../../api_methods/post_methods/postmethod';
 import DatePicker from 'react-native-modern-datepicker';
@@ -66,6 +66,7 @@ const EditProject = ({data, id, headers, handleCloseEditProjectModal}) => {
                    value={editproject.clientEmail} onChangeText={(text) => handleChange(text, 'clientEmail')} />
                 <Button title='Update Project' onPress={UpdateProject} />
             </View>
+            <Toast />
         </ScrollView>
     )
 }

@@ -95,8 +95,7 @@ export default function AddProject({ headers, handleCloseAddProjectModal }) {
     }
 
     return (
-        <ScrollView >
-            
+        <ScrollView > 
             <View style={styles.modalView}>
                 <Text style={styles.modalHeading}>Add Project</Text>
                 <Text style={styles.addprojecttext}>Project Name: </Text>

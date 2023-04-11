@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Image, ActivityIndicator } from "react-native";
+import { Text, View, FlatList, Image, ActivityIndicator, ImageBackground } from "react-native";
 import { getAllLeaves } from "../../../api_methods/get_methods/getmethods";
 import styles from "../../../globalstyles/GlobalStyles";
 
@@ -61,14 +61,15 @@ const PendingLeaves = () => {
 
 
     return (
-        <ScrollView horizontal={true} style={{ backgroundColor: "lightgreen" }}>
+        <ScrollView horizontal={true} >
+             <ImageBackground source={require('../../../images/logo.jpg')} >
             {loading ?
                 <View style={styles.indicatorWrapper}>
                     <ActivityIndicator style={styles.indicator} size="large" />
                     <Text style={styles.indicatorText}>Loading ...</Text>
                 </View>
                 :
-                <View >
+                <View>
                     {pendingleaves.length > 0 ?
                         <View style={styles.listheadingContainer}>
                             <View style={styles.listheading}>
@@ -111,9 +112,10 @@ const PendingLeaves = () => {
                         <FlatList
                             data={pendingleaves}
                             renderItem={Item}
-                            keyExtractor={item => item.i}
+                            keyExtractor={(item) => item._id}
                         /> : <Image source={require('../../../images/NoRecord.png')} />}
                 </View>}
+                </ImageBackground>
         </ScrollView>
     )
 }

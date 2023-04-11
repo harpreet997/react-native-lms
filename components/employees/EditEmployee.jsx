@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Alert, TextInput, Button } from 'react-native';
+import { View, Text, ScrollView, TextInput, Button } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { editEmployee } from '../../api_methods/post_methods/postmethod';
 import { getProjects } from '../../api_methods/get_methods/getmethods';
@@ -23,7 +23,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
             .catch((error) => {
                 console.log(error);
             })
-    }, [projectId]);
+    }, []);
 
 
     const handleChange = (text, input) => {
@@ -37,7 +37,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
         if (projectId === "Bench") {
             const data = {
                 name: editemployee.name,
-                email: editemployee.name,
+                email: editemployee.email,
                 assignedProject: null
             }
             editEmployee(id, data, headers)
@@ -47,7 +47,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                         text1: response.data.message,
                         visibilityTime: 2000,
                         position: "bottom",
-                      });
+                    });
                     handleCloseModal();
                 })
                 .catch((error) => {
@@ -56,13 +56,13 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                         text1: error.response.data.message,
                         visibilityTime: 2000,
                         position: "bottom",
-                      })
+                    })
                 })
         }
         else if (projectName === "Bench") {
             const data = {
                 name: editemployee.name,
-                email: editemployee.name,
+                email: editemployee.email,
                 assignedProject: null
             }
             editEmployee(id, data, headers)
@@ -72,7 +72,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                         text1: response.data.message,
                         visibilityTime: 2000,
                         position: "bottom",
-                      });
+                    });
                     handleCloseModal();
                 })
                 .catch((error) => {
@@ -81,7 +81,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                         text1: error.response.data.message,
                         visibilityTime: 2000,
                         position: "bottom",
-                      })
+                    })
                 })
         }
         else {
@@ -97,7 +97,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                         text1: response.data.message,
                         visibilityTime: 2000,
                         position: "bottom",
-                      });
+                    });
                     handleCloseModal();
                 })
                 .catch((error) => {
@@ -106,7 +106,7 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                         text1: error.response.data.message,
                         visibilityTime: 2000,
                         position: "bottom",
-                      })
+                    })
                 })
         }
     }
@@ -127,16 +127,17 @@ const EditEmployee = ({ data, id, project, projectid, headers, handleCloseModal 
                 <Picker style={styles.selectProject} selectedValue={projectId} onValueChange={(itemValue) => {
                     setProjectId(itemValue);
                     setProjectName('')
-                    }}>
+                }}>
                     <Picker.Item label="Bench" value="Bench" />
                     {projectlist.map((item, index) => {
                         return (
-                        <Picker.Item key={index} label={item.name} value={item._id} />
+                            <Picker.Item key={index} label={item.name} value={item._id} />
                         )
                     })}
                 </Picker>
-                <Button title='Update' onPress={UpdateEmployee}/>
+                <Button title='Update' onPress={UpdateEmployee} />
             </View>
+            <Toast />
         </ScrollView>
     );
 }

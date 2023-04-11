@@ -176,7 +176,7 @@ const PendingLeaves = () => {
                             <FlatList
                                 data={pendingleaves}
                                 renderItem={Item}
-                                keyExtractor={item => item.i}
+                                keyExtractor={(item) => item._id}
                             /> : <Image source={require('../../images/NoRecord.png')} />}
                     </View>}
             </ImageBackground>

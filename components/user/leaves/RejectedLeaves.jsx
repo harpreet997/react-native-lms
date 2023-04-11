@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, View, FlatList, Image, ActivityIndicator } from "react-native";
+import { Text, View, FlatList, Image, ActivityIndicator, ImageBackground } from "react-native";
 import { getAllLeaves } from "../../../api_methods/get_methods/getmethods";
 import styles from "../../../globalstyles/GlobalStyles";
 
@@ -21,7 +21,7 @@ const RejectedLeaves = () => {
     }, [leavelist]);
 
 
-    
+
     const Item = ({ item, index }) => {
         return (
             <View key={index} style={[styles.LeaveListItems,
@@ -64,60 +64,62 @@ const RejectedLeaves = () => {
     };
 
     return (
-        <ScrollView horizontal={true} style={{ backgroundColor: "lightgreen" }}>
-            {loading ?
-                <View style={styles.indicatorWrapper}>
-                    <ActivityIndicator style={styles.indicator} size="large" />
-                    <Text style={styles.indicatorText}>Loading ...</Text>
-                </View>
-                :
-                <View>
-                    {rejectedleaves.length > 0 ?
-                        <View style={styles.listheadingContainer}>
-                            <View style={styles.listheading}>
-                                <Text style={styles.textSize}>Name</Text>
+        <ScrollView horizontal={true} >
+            <ImageBackground source={require('../../../images/logo.jpg')} >
+                {loading ?
+                    <View style={styles.indicatorWrapper}>
+                        <ActivityIndicator style={styles.indicator} size="large" />
+                        <Text style={styles.indicatorText}>Loading ...</Text>
+                    </View>
+                    :
+                    <View>
+                        {rejectedleaves.length > 0 ?
+                            <View style={styles.listheadingContainer}>
+                                <View style={styles.listheading}>
+                                    <Text style={styles.textSize}>Name</Text>
+                                </View>
+                                <View style={styles.verticalline}>
+                                    <Text >|</Text>
+                                </View>
+                                <View style={styles.listheading}>
+                                    <Text style={styles.textSize}>Leave Type</Text>
+                                </View>
+                                <View style={styles.verticalline}>
+                                    <Text >|</Text>
+                                </View>
+                                <View style={styles.listheading}>
+                                    <Text style={styles.textSize}>From Date</Text>
+                                </View>
+                                <View style={styles.verticalline}>
+                                    <Text >|</Text>
+                                </View>
+                                <View style={styles.listheading}>
+                                    <Text style={styles.textSize}>To Date</Text>
+                                </View>
+                                <View style={styles.verticalline}>
+                                    <Text >|</Text>
+                                </View>
+                                <View style={styles.listheading}>
+                                    <Text style={styles.textSize}>Status</Text>
+                                </View>
+                                <View style={styles.verticalline}>
+                                    <Text >|</Text>
+                                </View>
+                                <View style={styles.listheading}>
+                                    <Text style={styles.textSize}>Reason</Text>
+                                </View>
                             </View>
-                            <View style={styles.verticalline}>
-                                <Text >|</Text>
-                            </View>
-                            <View style={styles.listheading}>
-                                <Text style={styles.textSize}>Leave Type</Text>
-                            </View>
-                            <View style={styles.verticalline}>
-                                <Text >|</Text>
-                            </View>
-                            <View style={styles.listheading}>
-                                <Text style={styles.textSize}>From Date</Text>
-                            </View>
-                            <View style={styles.verticalline}>
-                                <Text >|</Text>
-                            </View>
-                            <View style={styles.listheading}>
-                                <Text style={styles.textSize}>To Date</Text>
-                            </View>
-                            <View style={styles.verticalline}>
-                                <Text >|</Text>
-                            </View>
-                            <View style={styles.listheading}>
-                                <Text style={styles.textSize}>Status</Text>
-                            </View>
-                            <View style={styles.verticalline}>
-                                <Text >|</Text>
-                            </View>
-                            <View style={styles.listheading}>
-                                <Text style={styles.textSize}>Reason</Text>
-                            </View>
-                        </View>
-                        : null}
+                            : null}
 
-                    {rejectedleaves.length > 0 ?
-                        <FlatList
-                            data={rejectedleaves}
-                            renderItem={Item}
-                            keyExtractor={item => item.i}
-                        /> : <Image source={require('../../../images/NoRecord.png')} />}
+                        {rejectedleaves.length > 0 ?
+                            <FlatList
+                                data={rejectedleaves}
+                                renderItem={Item}
+                                keyExtractor={(item) => item._id}
+                            /> : <Image source={require('../../../images/NoRecord.png')} />}
 
-                </View>}
+                    </View>}
+            </ImageBackground>
         </ScrollView>
     )
 }

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, RefreshControl } from 'react-native'
+import { View, Text, ScrollView, TextInput, TouchableOpacity, RefreshControl, ImageBackground } from 'react-native'
 import React, { useState, useCallback } from 'react'
 import DatePicker from 'react-native-modern-datepicker';
 import { Picker } from '@react-native-picker/picker';
@@ -57,7 +57,8 @@ const ApplyLeave = (props) => {
     }, []);
 
     return (
-        <ScrollView style={styles.applyLeaveContainer} refreshControl={
+        <ImageBackground style={styles.applyLeaveContainer} source={require('../../../images/logo.jpg')} >
+        <ScrollView refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
             <View style={styles.applyLeaveMain}>
@@ -89,6 +90,7 @@ const ApplyLeave = (props) => {
                 </TouchableOpacity>
             </View>
         </ScrollView>
+        </ImageBackground>
     )
 }
 
